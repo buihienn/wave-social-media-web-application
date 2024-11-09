@@ -32,7 +32,16 @@
 
         <!-- Main Content -->
         <main>
-
+            <nav>
+                <ul class="nav nav-underline d-flex" id="wave-nav">
+                    <li class="nav-item flex-fill text-center">
+                      <a class="nav-link active" href="#" onclick="setActiveMode(event)">All waves</a>
+                    </li>
+                    <li class="nav-item flex-fill text-center">
+                      <a class="nav-link" href="#" onclick="setActiveMode(event)">Following</a>
+                    </li>
+                </ul>
+            </nav>
         </main>
 
         <!-- Footer -->
@@ -88,7 +97,6 @@
                 document.querySelectorAll(".tab-bar").forEach(image => {
                 let imageSrc = image.src;
                 let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
-                // dùng "() =>" thì this sẽ định nghĩa phạm vi khác
 
                 image.onclick = () => {
                     image.src = activeImageSrc;
@@ -98,6 +106,17 @@
                 }
             })
             }
+
+            function setActiveMode(event) {
+                // Lấy tất cả các mục nav-link và loại bỏ class 'active'
+                document.querySelectorAll('#wave-nav .nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Thêm class 'active' cho mục được click
+                event.currentTarget.classList.add('active');
+            }
+
         </script>
     </body>
 </html>
