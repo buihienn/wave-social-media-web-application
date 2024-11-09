@@ -1,0 +1,101 @@
+.container {
+    height: 100vh; 
+    padding: 0;
+}
+
+.status-iphone{
+    display: flex;
+    width: 25.125rem;
+    height: 3.375rem;
+    padding-left: 1.125rem;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 11.625rem;
+    flex-shrink: 0;
+}
+
+.Logo {
+    margin-top: 3em;
+    margin-bottom: 1em;
+}
+
+.Logo img {
+    width: 10rem;
+    height: 5rem;
+    flex-shrink: 0;
+}
+
+#register-title{
+    font-family: "SF Pro";
+    font-size: 2.125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.5625rem;
+    letter-spacing: 0.025rem;
+}
+
+.login-container{
+    width: 18.6875rem;
+    height: 19rem;
+    flex-shrink: 0;
+    margin-top: 3em;
+    margin-bottom: 2em;
+}
+
+.register-button{
+    display: flex;
+    width: 18.5rem;
+    height: 2.75rem;
+    padding: 0.6875rem 0rem;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    margin-top: 2em;
+
+    /* Blue */
+    background: linear-gradient(88.7deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
+    backdrop-filter: blur(25px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    /* Button */
+    font-family: 'SF Pro';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height, or 138% */
+    letter-spacing: -0.43px;
+
+    color: #FFFFFF;
+}
+
+
+input{
+    display: flex;
+    width: 18.375rem;
+    height: 2.75rem;
+    padding: 0 0 0 0.5em;
+    align-items: center;
+    border-radius: 0.625rem;
+    background: rgba(120, 120, 128, 0.12);
+    backdrop-filter: blur(25px);
+}
+
+#toggle-password {
+    position: absolute;
+    top: 40%;
+    right: 5%;
+}
+
+#Login-text{
+    background: linear-gradient(88deg, #1A2980 76.02%, #122CAC 87.48%, #6AF0FF 98.9%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "SF Pro";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.375rem;
+    letter-spacing: -0.02688rem;
+}

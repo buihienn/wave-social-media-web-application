@@ -1,0 +1,84 @@
+.container {
+    height: 100vh; 
+    padding: 0;
+}
+
+.status-iphone{
+    display: flex;
+    width: 25.125rem;
+    height: 3.375rem;
+    padding-left: 1.125rem;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 11.625rem;
+    flex-shrink: 0;
+}
+
+#text-header{
+    font-family: "SF Pro";
+    font-size: 2.125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.5625rem;
+    letter-spacing: 0.025rem;
+}
+
+
+.Logo {
+    margin-top: 3.5em;
+    margin-bottom: 1em;
+    
+}
+
+.Logo img {
+    width: 10rem;
+    height: 5rem;
+    flex-shrink: 0;
+}
+
+.s1-container{
+    width: 18.5rem;
+    height: 12.75rem;
+    flex-shrink: 0;
+    margin-top: 2em;
+    margin-bottom: 3em;
+}
+
+input{
+    display: flex;
+    width: 18.375rem;
+    height: 2.75rem;
+    padding: 0 0 0 0.5em;
+    align-items: center;
+    border-radius: 0.625rem;
+    background: rgba(120, 120, 128, 0.12);
+    backdrop-filter: blur(25px);
+}
+
+.sendEmail-button{
+    display: flex;
+    width: 18.5rem;
+    height: 2.75rem;
+    padding: 0.6875rem 0rem;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+
+    /* Blue */
+    background: linear-gradient(88.7deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
+    backdrop-filter: blur(25px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    /* Button */
+    font-family: 'SF Pro';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height, or 138% */
+    letter-spacing: -0.43px;
+
+    color: #FFFFFF;
+}
+

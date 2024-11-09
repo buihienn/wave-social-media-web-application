@@ -1,0 +1,89 @@
+.container {
+    height: 100vh; 
+    padding: 0;
+}
+
+.status-iphone{
+    display: flex;
+    width: 25.125rem;
+    height: 3.375rem;
+    padding-left: 1.125rem;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 11.625rem;
+    flex-shrink: 0;
+}
+
+#text-header{
+    font-family: "SF Pro";
+    font-size: 2.125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.5625rem;
+    letter-spacing: 0.025rem;
+}
+
+
+.Logo {
+    margin-top: 3.5em;
+    margin-bottom: 1em;
+    
+}
+
+.Logo img {
+    width: 10rem;
+    height: 5rem;
+    flex-shrink: 0;
+}
+
+.tex{
+    font-family: "SF Pro";
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.375rem; /* 146.667% */
+    letter-spacing: -0.02688rem;
+}
+
+.something {
+    color: rgba(0, 0, 0, 0.60);
+    font-family: "SF Pro";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.375rem; /* 157.143% */
+    letter-spacing: -0.02688rem;
+}
+
+.divider-container {
+    position: relative;
+    text-align: center;
+    margin-top: 2em;
+}
+
+.divider-container hr {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.6);
+    margin: 0;
+}
+
+.divider-text {
+    position: absolute;
+    transform: translate(-50%, -55%);
+    background-color: white;
+    padding: 0 10px;   
+}
+
+#resend-text{
+    font-family: "SF Pro";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.375rem; /* 137.5% */
+    letter-spacing: -0.02688rem;
+
+    background: linear-gradient(88deg, #1A2980 76.02%, #122CAC 87.48%, #6AF0FF 98.9%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
