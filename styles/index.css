@@ -1,6 +1,6 @@
 .logo-container {
     margin: 0 auto;
-    width: 25%;
+    width: 5rem;
     padding-top: 1rem;
 }
 
@@ -19,3 +19,43 @@
     color: #B8B8B8; 
     border-bottom-color: #B8B8B8; 
 }
+
+.container-post {
+    margin-top: 8rem;
+    border-bottom: 0.25px solid #DFDFDF;
+    
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.avatar-container {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.container-post-main-image {
+    height: 11rem; 
+    overflow: hidden;
+}
+
+.container-post-main-image img {
+    width: auto; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 5%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
