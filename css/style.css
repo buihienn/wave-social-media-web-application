@@ -69,3 +69,12 @@ main {
     align-items: center;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
 }
+
+/* Tilte */
+h1 {
+    font-family: SF Pro;
+    font-weight: 650;
+    font-size: 2rem;
+    letter-spacing: 0.35px;
+    color: #000000;
+}
