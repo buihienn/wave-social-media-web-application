@@ -5,29 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS v5.2.1 -->
     <link href = "../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href = "./forgot-pass.css" rel = "stylesheet"/>
+    <link href = "/css/success-change-page.css" rel = "stylesheet"/>
+    <link href = "/css/style.css" rel = "stylesheet"/>
 
-    <title>ForgotPassword</title>
+    <title>Success change passowrd</title>
 </head>
 <body>
     <div class="container d-flex flex-column align-items-center"> 
         <div class = "status-iphone"></div>
         <div class = "Logo">
-            <img src="../../images/logo.png" alt="Logo">
+            <img src="/images/logo.svg" alt="Logo">
         </div>
 
-        <div><h1 id ="text-header">Forgot password ?</h1></div>
-        <div style = "width: 18.5rem">Don't worry! Please enter the email address linked to your account to reset your password</div>
+        <div><h1 id ="text-header">Success!</h1></div>
+        <div style = "width: 18.5rem" id = "successfull-1" class = "mt-3">Your passowrd has been changed successfully</div>
         <div class = "s1-container">
-            <div class="mb-3">
-                <input type="email" id="email" placeholder="Email address">
-            </div>
-            <div><button class = "sendEmail-button">Send email</button></div>
+            <div><button class="waveBtn" id = "back-login-button" onclick ="goToLogin()">Back to log in</button></div>
         </div>
     </div>
 
     
     <!-- Bootstrap JavaScript Libraries -->
     <script href = "../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"> </script>
+    <script>
+        function goToLogin() {
+            window.location.href = "./login.html";
+        }
+    </script>
 </body>
 </html>

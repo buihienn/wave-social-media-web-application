@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS v5.2.1 -->
     <link href = "../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href = "./register.css" rel = "stylesheet"/>
+    <link href = "/css/register.css" rel = "stylesheet"/>
+    <link href = "/css/style.css" rel = "stylesheet"/>
 
     <title>Register</title>
 </head>
@@ -13,7 +14,7 @@
     <div class="container d-flex flex-column align-items-center"> 
         <div class = "status-iphone"></div>
         <div class = "Logo">
-            <img src="../../images/logo.png" alt="Logo">
+            <img src="../../images/logo.svg" alt="Logo">
         </div>
 
         <div><h1 id = "register-title">Register</h1></div>
@@ -28,18 +29,18 @@
             </div>
             <div class="mb-3 position-relative">
                 <input type="password" id="password" placeholder="Your password">
-                <img src="../../images/Hide pass.png" id="toggle-password"  alt="Toggle Password">
+                <img src="/images/Hide pass.png" id="toggle-password"  alt="Toggle Password">
             </div>
             <div class="mb-3 position-relative">
                 <input type="password" id="confirm-password" placeholder="Confirm password">
-                <img src="../../images/Hide pass.png" id="toggle-password"  alt="Toggle Password">
+                <img src="/images/Hide pass.png" id="toggle-password"  alt="Toggle Password">
             </div>
-            <div><button class = "register-button">Register</button></div>
+            <div><button class="waveBtn" id = "register-button">Register</button></div>
         </div>
 
         <div>
             <span>Already have an account?</span>
-            <span id = "Login-text"><a href="../Login-page/login.html">Login</a></span>
+            <span id = "Login-text"><a href="./login.html">Login</a></span>
         </div>
 
     </div>

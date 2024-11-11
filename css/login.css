@@ -26,7 +26,7 @@
 
 .Logo {
     margin-top: 3.5em;
-    margin-bottom: 1em;
+    margin-bottom: 3.5em;
     
 }
 
@@ -36,11 +36,11 @@
     flex-shrink: 0;
 }
 
-.s1-container{
+.login-container{
     width: 18.5rem;
     height: 12.75rem;
     flex-shrink: 0;
-    margin-top: 2em;
+    margin-top: 3.5em;
     margin-bottom: 3em;
 }
 
@@ -55,30 +55,45 @@ input{
     backdrop-filter: blur(25px);
 }
 
-.sendEmail-button{
-    display: flex;
-    width: 18.5rem;
-    height: 2.75rem;
-    padding: 0.6875rem 0rem;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+#toggle-password {
+    position: absolute;
+    top: 40%;
+    right: 5%;
+}
 
+
+.forget-text{
+    font-family: "SF Pro";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 510;
+    line-height: 1.375rem; /* 157.143% */
+    letter-spacing: -0.02688rem;
 
     /* Blue */
     background: linear-gradient(88.7deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
-    backdrop-filter: blur(25px);
-    /* Note: backdrop-filter has minimal browser support */
-    border-radius: 10px;
-    /* Button */
-    font-family: 'SF Pro';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 22px;
-    /* identical to box height, or 138% */
-    letter-spacing: -0.43px;
-
-    color: #FFFFFF;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
+#login-button{
+    width: 18.5rem;
+    height: 2.75rem;
+    padding: 0.6875rem 0rem;
+
+    font-size: 1rem;
+}
+
+#Register{
+    background: linear-gradient(88deg, #1A2980 76.02%, #122CAC 87.48%, #6AF0FF 98.9%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "SF Pro";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.375rem;
+    letter-spacing: -0.02688rem;
+}

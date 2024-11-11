@@ -26,7 +26,7 @@
 
 .Logo {
     margin-top: 3.5em;
-    margin-bottom: 3.5em;
+    margin-bottom: 1em;
     
 }
 
@@ -40,7 +40,7 @@
     width: 18.5rem;
     height: 12.75rem;
     flex-shrink: 0;
-    margin-top: 3.5em;
+    margin-top: 2em;
     margin-bottom: 3em;
 }
 
@@ -55,37 +55,11 @@ input{
     backdrop-filter: blur(25px);
 }
 
-#toggle-password {
-    position: absolute;
-    top: 40%;
-    right: 5%;
-}
-
-
-
-.reset-button{
-    display: flex;
+#sendEmail-button{
     width: 18.5rem;
     height: 2.75rem;
     padding: 0.6875rem 0rem;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
 
-
-    /* Blue */
-    background: linear-gradient(88.7deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
-    backdrop-filter: blur(25px);
-    /* Note: backdrop-filter has minimal browser support */
-    border-radius: 10px;
-    /* Button */
-    /* font-family: 'SF Pro'; */
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 22px;
-    /* identical to box height, or 138% */
-    letter-spacing: -0.43px;
-
-    color: #FFFFFF;
+    font-size: 1rem;
 }
+
