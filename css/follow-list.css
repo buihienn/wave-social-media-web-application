@@ -1,17 +1,11 @@
 main {
-    margin-top: 6.5rem;
-}
+    margin-top: 11rem;
+}        
 
-.post {
-    border-bottom: 0.25px solid #DFDFDF;
-}
-
-.avatar-container {
+.follower-avatar {
     width: 3rem;
     height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-shrink: 0;
 }
 
 .avatar {
@@ -21,21 +15,8 @@ main {
     overflow: hidden;
 }
 
-.container-post-main-image {
-    height: 11rem; 
-    overflow: hidden;
-}
-
-.container-post-main-image img {
-    width: auto; 
-    height: 100%; 
-    object-fit: cover; 
-    border-radius: 5%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 .follow {
-    width: 6rem;
+    width: 7rem;
     padding: 0.35rem 0.75rem;
 
     /* Blue */
@@ -56,7 +37,7 @@ main {
 }
 
 .following {
-    width: 6rem;
+    width: 7rem;
     padding: 0.35rem 0.75rem;
 
     /* Blue */

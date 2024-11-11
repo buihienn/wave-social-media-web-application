@@ -326,19 +326,16 @@
             }
 
             function setActiveMode(event) {
-                // Lấy tất cả các mục nav-link và loại bỏ class 'active'
                 document.querySelectorAll('#wave-nav .nav-link').forEach(link => {
                     link.classList.remove('active');
                 });
 
-                // Thêm class 'active' cho mục được click
                 event.currentTarget.classList.add('active');
             }
 
             function followAction(event) {
-                let followBtn = event.currentTarget; // Lấy phần tử nút được nhấn
+                let followBtn = event.currentTarget;
 
-                // Kiểm tra nội dung bên trong nút và thay đổi nội dung và class tương ứng
                 if (followBtn.textContent.trim() === 'Follow') {
                     followBtn.textContent = 'Following';
                     followBtn.classList.add('following');
@@ -352,7 +349,6 @@
                 // Xử lý follow/unfollow
             }
 
-            // Thêm sự kiện click cho tất cả các nút có class .followButton
             document.querySelectorAll('.followButton').forEach(button => {
                 button.addEventListener('click', followAction);
             });
