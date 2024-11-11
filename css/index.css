@@ -1,3 +1,40 @@
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.waveBtn {
+    /* Blue */
+    background: linear-gradient(89deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    border: 1px solid #FFFFFF;
+    /* Button */
+    font-family: SF Pro;
+    font-weight: 650;
+    font-style: normal;
+    font-size: 13px;
+    letter-spacing: 0.35px;
+
+    color: #FFFFFF;
+}
+
+.waveBtn:active {
+    /* Blue */
+    background: linear-gradient(89deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Button */
+    font-family: SF Pro;
+    font-style: normal;
+    font-weight: 650;
+    font-size: 13px;
+    letter-spacing: 0.35px;
+
+
+    border: 1px solid #999999;
+    border-radius: 10px;
+}
+
 /* Header */
 .logo-container {
     margin: 0 auto;
@@ -62,44 +99,18 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.followButton.follow {
-    width: 5rem;
-    padding-inline: 1rem;
-    /* Blue */
-    background: linear-gradient(89deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
-    backdrop-filter: blur(25px);
-    /* Note: backdrop-filter has minimal browser support */
-    border-radius: 10px;
-    border: 1px solid rgb(255, 255, 255);
-    /* Button */
-    font-family: 'SF Pro';
-    font-style: normal;
-    font-weight: 650;
-    font-size: 13px;
-    line-height: 22px;
-    letter-spacing: -0.43px;
-    text-align: center;
-
-    color:rgb(255, 255, 255);
+.follow {
+    width: 6rem;
+    padding: 0.35rem 0.75rem;
 }
 
-.followButton.following {
-    width: 5rem;
-    padding-inline: 1rem;
+.following {
+    width: 6rem;
+    padding: 0.35rem 0.75rem;
+
     /* Blue */
     background: linear-gradient(89deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
-    backdrop-filter: blur(25px);
-    /* Note: backdrop-filter has minimal browser support */
-    border-radius: 10px;
-    border: 1px solid rgb(255, 255, 255);
-    /* Button */
-    font-family: 'SF Pro';
-    font-style: normal;
-    font-weight: 650;
-    font-size: 13px;
-    line-height: 22px;
-    letter-spacing: -0.43px;
-    text-align: center;
-
-    color:rgb(255, 255, 255);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: 1px solid #999999;
 }
