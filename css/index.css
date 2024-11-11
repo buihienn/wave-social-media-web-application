@@ -1,0 +1,105 @@
+/* Header */
+.logo-container {
+    margin: 0 auto;
+    width: 5rem;
+    padding-top: 1rem;
+}
+
+/* Footer */
+#wave-nav {
+    gap: 0; 
+}
+
+.nav-underline#wave-nav .nav-link.active {
+    color:black;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(89deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
+    border-image-slice: 1; 
+}
+
+.nav-underline#wave-nav .nav-link {
+    color: #B8B8B8; 
+    border-bottom-color: #B8B8B8; 
+}
+
+/* Main */
+main {
+    margin-top: 6.5rem;
+}
+.post {
+    border-bottom: 0.25px solid #DFDFDF;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.avatar-container {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.container-post-main-image {
+    height: 11rem; 
+    overflow: hidden;
+}
+
+.container-post-main-image img {
+    width: auto; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 5%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.followButton.follow {
+    width: 5rem;
+    padding-inline: 1rem;
+    /* Blue */
+    background: linear-gradient(89deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
+    backdrop-filter: blur(25px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    /* Button */
+    font-family: 'SF Pro';
+    font-style: normal;
+    font-weight: 650;
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: -0.43px;
+    text-align: center;
+
+    color:rgb(255, 255, 255);
+}
+
+.followButton.following {
+    width: 5rem;
+    padding-inline: 1rem;
+    /* Blue */
+    background: linear-gradient(89deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
+    backdrop-filter: blur(25px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    /* Button */
+    font-family: 'SF Pro';
+    font-style: normal;
+    font-weight: 650;
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: -0.43px;
+    text-align: center;
+
+    color:rgb(255, 255, 255);
+}
