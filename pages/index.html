@@ -21,13 +21,17 @@
             href="/css/index.css"
             rel="stylesheet"
         />
+        <link 
+        href="/css/style.css"
+        rel="stylesheet"
+        />
     </head>
 
     <body>
         <!--Header-->
         <header class="bg-white fixed-top pt-2">
             <div class="logo-container">
-                <img src="/images/logowave.svg" alt="logo" class="img-fluid"/>
+                <img src="/images/logo.svg" alt="logo" class="img-fluid"/>
             </div>
             <nav>
                 <ul class="nav nav-underline d-flex" id="wave-nav">
@@ -64,7 +68,7 @@
                                 <small class="text-muted">6m ago</small>
                             </div>
                             <div class="container-user-end d-flex align-items-center">
-                                <button class="waveBtn followButton follow me-2 mt-1" onclick="followAction()" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                                <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
                                 <button class="btn btn-sm">
                                     <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
                                 </button>
@@ -75,8 +79,10 @@
                         <p class="m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
                 
                         <!-- Post image -->
-                        <div class="container-post-main-image my-2">
-                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid">
+                        <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                         </div>
                         <!-- Reaction -->
                         <div class="container-reaction d-flex">
@@ -99,7 +105,180 @@
                 </div>
 
             </div>
-            
+            <div class="container-post">
+                <div class="post d-flex py-2">
+                    <!-- Avatar -->
+                    <div class="container-avatar px-2">
+                        <div class="avatar-container">
+                            <img src="/images/avatar.jpg" alt="User Avatar" class="img-fluid avatar">
+                        </div>
+                    </div>
+                
+                    <!--Main container -->
+                    <div class="container-post-main container-fluid d-flex flex-column">
+                        <!-- User -->
+                        <div class="container-user d-flex justify-content-between align-items-start mb-2">
+                            <div class="container-user-first d-flex flex-column align-items-start">
+                                <div class="username d-flex">
+                                    <strong class="me-2">Username</strong>
+                                    <img src="/icons/verified.svg" alt="Verified" class="d-flex align-self-center" style="width: 1rem; height: 1rem;">
+                                </div>
+                                <small class="text-muted">6m ago</small>
+                            </div>
+                            <div class="container-user-end d-flex align-items-center">
+                                <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                                <button class="btn btn-sm">
+                                    <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                        </div>
+                
+                        <!-- Post content -->
+                        <p class="m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
+                
+                        <!-- Post image -->
+                        <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                        </div>
+                        <!-- Reaction -->
+                        <div class="container-reaction d-flex">
+                            <!-- Wave -->
+                            <div class="container-reaction-wave d-flex align-items-center me-4">
+                                <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
+                                <small class="text-muted">14K</small>
+                            </div>
+                            <!-- Comment -->
+                            <div class="container-reaction-comment d-flex align-items-center me-4">
+                                <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
+                                <small class="text-muted">200</small>
+                            </div>
+                            <!-- Copy link -->
+                            <div class="container-reaction-copy d-flex align-items-center">
+                                <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="container-post">
+                <div class="post d-flex py-2">
+                    <!-- Avatar -->
+                    <div class="container-avatar px-2">
+                        <div class="avatar-container">
+                            <img src="/images/avatar.jpg" alt="User Avatar" class="img-fluid avatar">
+                        </div>
+                    </div>
+                
+                    <!--Main container -->
+                    <div class="container-post-main container-fluid d-flex flex-column">
+                        <!-- User -->
+                        <div class="container-user d-flex justify-content-between align-items-start mb-2">
+                            <div class="container-user-first d-flex flex-column align-items-start">
+                                <div class="username d-flex">
+                                    <strong class="me-2">Username</strong>
+                                    <img src="/icons/verified.svg" alt="Verified" class="d-flex align-self-center" style="width: 1rem; height: 1rem;">
+                                </div>
+                                <small class="text-muted">6m ago</small>
+                            </div>
+                            <div class="container-user-end d-flex align-items-center">
+                                <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                                <button class="btn btn-sm">
+                                    <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                        </div>
+                
+                        <!-- Post content -->
+                        <p class="m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
+                
+                        <!-- Post image -->
+                        <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                        </div>
+                        <!-- Reaction -->
+                        <div class="container-reaction d-flex">
+                            <!-- Wave -->
+                            <div class="container-reaction-wave d-flex align-items-center me-4">
+                                <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
+                                <small class="text-muted">14K</small>
+                            </div>
+                            <!-- Comment -->
+                            <div class="container-reaction-comment d-flex align-items-center me-4">
+                                <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
+                                <small class="text-muted">200</small>
+                            </div>
+                            <!-- Copy link -->
+                            <div class="container-reaction-copy d-flex align-items-center">
+                                <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="container-post">
+                <div class="post d-flex py-2">
+                    <!-- Avatar -->
+                    <div class="container-avatar px-2">
+                        <div class="avatar-container">
+                            <img src="/images/avatar.jpg" alt="User Avatar" class="img-fluid avatar">
+                        </div>
+                    </div>
+                
+                    <!--Main container -->
+                    <div class="container-post-main container-fluid d-flex flex-column">
+                        <!-- User -->
+                        <div class="container-user d-flex justify-content-between align-items-start mb-2">
+                            <div class="container-user-first d-flex flex-column align-items-start">
+                                <div class="username d-flex">
+                                    <strong class="me-2">Username</strong>
+                                    <img src="/icons/verified.svg" alt="Verified" class="d-flex align-self-center" style="width: 1rem; height: 1rem;">
+                                </div>
+                                <small class="text-muted">6m ago</small>
+                            </div>
+                            <div class="container-user-end d-flex align-items-center">
+                                <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                                <button class="btn btn-sm">
+                                    <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                        </div>
+                
+                        <!-- Post content -->
+                        <p class="m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
+                
+                        <!-- Post image -->
+                        <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                        </div>
+                        <!-- Reaction -->
+                        <div class="container-reaction d-flex">
+                            <!-- Wave -->
+                            <div class="container-reaction-wave d-flex align-items-center me-4">
+                                <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
+                                <small class="text-muted">14K</small>
+                            </div>
+                            <!-- Comment -->
+                            <div class="container-reaction-comment d-flex align-items-center me-4">
+                                <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
+                                <small class="text-muted">200</small>
+                            </div>
+                            <!-- Copy link -->
+                            <div class="container-reaction-copy d-flex align-items-center">
+                                <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </main>
 
         <!-- Footer -->
@@ -167,8 +346,8 @@
                 event.currentTarget.classList.add('active');
             }
 
-            function followAction() {
-                let followBtn = document.querySelector('.followButton');
+            function followAction(event) {
+                let followBtn = event.currentTarget; // Lấy phần tử nút được nhấn
 
                 // Kiểm tra nội dung bên trong nút và thay đổi nội dung và class tương ứng
                 if (followBtn.textContent.trim() === 'Follow') {
@@ -183,6 +362,12 @@
 
                 // Xử lý follow/unfollow
             }
+
+            // Thêm sự kiện click cho tất cả các nút có class .followButton
+            document.querySelectorAll('.followButton').forEach(button => {
+                button.addEventListener('click', followAction);
+            });
+
 
         </script>
     </body>
