@@ -26,11 +26,6 @@ body {
     border-bottom-color: #B8B8B8; 
 }
 
-/* Main */
-main {
-    margin-top: 6.5rem;
-}
-
 /* Button */
 
 .waveBtn {
@@ -68,4 +63,13 @@ main {
     justify-content: center;
     align-items: center;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+/* Tilte */
+h1 {
+    font-family: SF Pro;
+    font-weight: 650;
+    font-size: 2rem;
+    letter-spacing: 0.4px;
+    color: #000000;
 }
