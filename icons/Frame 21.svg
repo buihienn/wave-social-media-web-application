@@ -1,0 +1,11 @@
+<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 21">
+<path id="Ellipse 80" d="M23.5 12.5C23.5 18.5751 18.5751 23.5 12.5 23.5C6.42487 23.5 1.5 18.5751 1.5 12.5C1.5 6.42487 6.42487 1.5 12.5 1.5C18.5751 1.5 23.5 6.42487 23.5 12.5Z" fill="#122CAC" stroke="white" stroke-width="3"/>
+<g id="Vector 26">
+<path d="M14 10L8 15V16H9L15 11L14 10Z" fill="white"/>
+<path d="M16 10L15 9L16 8L17 9L16 10Z" fill="white"/>
+<path d="M14 10L8 15V16H9L15 11L14 10Z" stroke="white" stroke-linejoin="round"/>
+<path d="M16 10L15 9L16 8L17 9L16 10Z" stroke="white" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>
