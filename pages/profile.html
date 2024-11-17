@@ -281,6 +281,28 @@
             textarea.style.height = 'auto';
             textarea.style.height = (textarea.scrollHeight) + 'px'; 
         }
+
+        function likeAction(event) {
+            let button = event.currentTarget; 
+            let image = button.querySelector('img'); 
+
+            if (image.src.includes('/icons/surge.svg')) {
+                image.src = '/icons/surge-active.svg';
+            } else {
+                image.src = '/icons/surge.svg';
+            }
+        }
+
+        document.querySelectorAll('.container-reaction-wave').forEach(button => {
+            button.addEventListener('click', likeAction);
+        });
+
+        document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
+            element.addEventListener('click', () => {
+                window.location.href = 'post.html'; 
+            });
+        });
+
     </script>
 
 </body>
