@@ -15,52 +15,48 @@
 <body>
     <header></header>
     <main> 
-        <div class="container d-flex flex-column align-items-center"> 
-            <div class="row p-3 pb-0" style="height: 30%">
+        <div class="container-fluid d-flex flex-column align-items-center" style="margin-bottom: 65px;">
+            <div class="row p-3 flex-shrink-0">
                 <div class="position-relative p-0">
-                    <p class = "m-0" id = "Olivia-text">Olivia Rodigo</p>
-                    <p class = "m-0">oliviarodrigo</p>
-                    <img class = "position-absolute" id = "avatar-profile" src = "/images/avatar.jpg" alt = "avatar">
+                    <p class="m-0" id="Olivia-text">Olivia Rodigo</p>
+                    <p class="m-0">oliviarodrigo</p>
+                    <img class="position-absolute" id="avatar-profile" src="/images/avatar.jpg" alt="avatar">
                 </div>
-                <div class = "p-0">
-                    Bio </br>
-                    BioBio</br>
+                <div class="p-0">
+                    Bio<br>
+                    BioBio<br>
                     BioBio
                 </div>
-                <div class = "p-0" id = "special-information">
-                    <a href="./follow-list.html" class="follow-link"> 412K follower</a>
+                <div class="p-0" id="special-information">
+                    <a href="./follow-list.html" class="follow-link">412K followers</a>
                     . oliviarodrigo.Ink.to/GUTS
                 </div>
-                <div class = "two-button p-0 d-flex justify-content-between">
-                    <div><a href="edit-profile.html"><button class="waveBtn" id = "button-profile">Edit profile</button></a></div>
-                    <div><button class="waveBtn" id = "button-profile">Share profile</button></div>
+                <div class="two-button p-0 d-flex justify-content-between">
+                    <div><a href="edit-profile.html"><button class="waveBtn" id="button-profile">Edit profile</button></a></div>
+                    <div><button class="waveBtn" id="button-profile">Share profile</button></div>
                 </div>
             </div>
-            <div class="row container-fluid p-0" style="height: 5%">
-                <nav class="p-0">
+            <div class="row container-fluid p-0 flex-shrink-0">
+                <nav>
                     <ul class="nav nav-underline d-flex" id="wave-nav">
                         <li class="nav-item flex-fill text-center">
-                          <a class="nav-link active" href="#" onclick="setActiveMode(event)">Waves</a>
+                          <a class="nav-link active" href="#" onclick="setActiveMode(event)">All waves</a>
                         </li>
                         <li class="nav-item flex-fill text-center">
-                          <a class="nav-link" href="#" onclick="setActiveMode(event)">Replies</a>
+                          <a class="nav-link" href="#" onclick="setActiveMode(event)">Following</a>
                         </li>
                     </ul>
                 </nav>
             </div>
-            <div class="row container-fluid p-0" style="height: 65%">
+            <div class="row container-fluid p-0 flex-grow-1 overflow-auto">
                 <!-- One div post -->
-                <div class="post d-flex py-2">
-                    <!-- Avatar -->
+                <div class="post d-flex py-2 border-bottom">
                     <div class="container-avatar px-2">
                         <div class="avatar-container">
                             <img src="/images/avatar.jpg" alt="User Avatar" class="img-fluid avatar">
                         </div>
                     </div>
-                
-                    <!--Main container -->
                     <div class="container-post-main container-fluid p-0 d-flex flex-column">
-                        <!-- User -->
                         <div class="container-user d-flex justify-content-between align-items-start mb-2">
                             <div class="container-user-first d-flex flex-column align-items-start">
                                 <div class="username d-flex">
@@ -75,49 +71,35 @@
                                 </button>
                             </div>
                         </div>
-                
-                        <!-- Post content -->
                         <p class="m-0">Your text</p>
-                
-                        <!-- Post image -->
                         <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
                             <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                             <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                             <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                         </div>
-                        <!-- Reaction -->
                         <div class="container-reaction d-flex">
-                            <!-- Wave -->
                             <div class="container-reaction-wave d-flex align-items-center me-4">
                                 <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
                                 <small class="text-muted">14K</small>
                             </div>
-                            <!-- Comment -->
                             <div class="container-reaction-comment d-flex align-items-center me-4">
                                 <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
                                 <small class="text-muted">200</small>
                             </div>
-                            <!-- Copy link -->
                             <div class="container-reaction-copy d-flex align-items-center">
                                 <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End one post -->
-
-                <!-- One div post -->
-                <div class="post d-flex py-2">
-                    <!-- Avatar -->
+                <!-- Add more posts here -->
+                <div class="post d-flex py-2 border-bottom">
                     <div class="container-avatar px-2">
                         <div class="avatar-container">
                             <img src="/images/avatar.jpg" alt="User Avatar" class="img-fluid avatar">
                         </div>
                     </div>
-                
-                    <!--Main container -->
                     <div class="container-post-main container-fluid p-0 d-flex flex-column">
-                        <!-- User -->
                         <div class="container-user d-flex justify-content-between align-items-start mb-2">
                             <div class="container-user-first d-flex flex-column align-items-start">
                                 <div class="username d-flex">
@@ -132,49 +114,34 @@
                                 </button>
                             </div>
                         </div>
-                
-                        <!-- Post content -->
                         <p class="m-0">Your text</p>
-                
-                        <!-- Post image -->
                         <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
                             <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                             <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                             <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                         </div>
-                        <!-- Reaction -->
                         <div class="container-reaction d-flex">
-                            <!-- Wave -->
                             <div class="container-reaction-wave d-flex align-items-center me-4">
                                 <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
                                 <small class="text-muted">14K</small>
                             </div>
-                            <!-- Comment -->
                             <div class="container-reaction-comment d-flex align-items-center me-4">
                                 <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
                                 <small class="text-muted">200</small>
                             </div>
-                            <!-- Copy link -->
                             <div class="container-reaction-copy d-flex align-items-center">
                                 <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End one post -->
-
-                <!-- One div post -->
-                <div class="post d-flex py-2">
-                    <!-- Avatar -->
+                <div class="post d-flex py-2 border-bottom">
                     <div class="container-avatar px-2">
                         <div class="avatar-container">
                             <img src="/images/avatar.jpg" alt="User Avatar" class="img-fluid avatar">
                         </div>
                     </div>
-                
-                    <!--Main container -->
                     <div class="container-post-main container-fluid p-0 d-flex flex-column">
-                        <!-- User -->
                         <div class="container-user d-flex justify-content-between align-items-start mb-2">
                             <div class="container-user-first d-flex flex-column align-items-start">
                                 <div class="username d-flex">
@@ -189,39 +156,71 @@
                                 </button>
                             </div>
                         </div>
-                
-                        <!-- Post content -->
                         <p class="m-0">Your text</p>
-                
-                        <!-- Post image -->
                         <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
                             <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                             <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                             <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
                         </div>
-                        <!-- Reaction -->
                         <div class="container-reaction d-flex">
-                            <!-- Wave -->
                             <div class="container-reaction-wave d-flex align-items-center me-4">
                                 <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
                                 <small class="text-muted">14K</small>
                             </div>
-                            <!-- Comment -->
                             <div class="container-reaction-comment d-flex align-items-center me-4">
                                 <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
                                 <small class="text-muted">200</small>
                             </div>
-                            <!-- Copy link -->
                             <div class="container-reaction-copy d-flex align-items-center">
                                 <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End one post -->
-
+                <div class="post d-flex py-2 border-bottom">
+                    <div class="container-avatar px-2">
+                        <div class="avatar-container">
+                            <img src="/images/avatar.jpg" alt="User Avatar" class="img-fluid avatar">
+                        </div>
+                    </div>
+                    <div class="container-post-main container-fluid p-0 d-flex flex-column">
+                        <div class="container-user d-flex justify-content-between align-items-start mb-2">
+                            <div class="container-user-first d-flex flex-column align-items-start">
+                                <div class="username d-flex">
+                                    <strong class="me-2">Username</strong>
+                                    <img src="/icons/verified.svg" alt="Verified" class="d-flex align-self-center" style="width: 1rem; height: 1rem;">
+                                </div>
+                                <small class="text-muted">6m ago</small>
+                            </div>
+                            <div class="container-user-end d-flex align-items-center">
+                                <button class="btn btn-sm">
+                                    <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                        </div>
+                        <p class="m-0">Your text</p>
+                        <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                            <img src="/images/post1.jpg" alt="Post Image" class="img-fluid me-2">
+                        </div>
+                        <div class="container-reaction d-flex">
+                            <div class="container-reaction-wave d-flex align-items-center me-4">
+                                <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
+                                <small class="text-muted">14K</small>
+                            </div>
+                            <div class="container-reaction-comment d-flex align-items-center me-4">
+                                <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
+                                <small class="text-muted">200</small>
+                            </div>
+                            <div class="container-reaction-copy d-flex align-items-center">
+                                <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div> 
+        </div>
     </main>  
 
     <footer class="bg-white fixed-bottom">
