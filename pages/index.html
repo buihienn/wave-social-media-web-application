@@ -74,7 +74,7 @@
                         </div>
                 
                         <!-- Post content -->
-                        <p class="m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
+                        <p class="content-post m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
                 
                         <!-- Post image -->
                         <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
@@ -129,7 +129,7 @@
                         </div>
                 
                         <!-- Post content -->
-                        <p class="m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
+                        <p class="content-post m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
                 
                         <!-- Post image -->
                         <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
@@ -184,7 +184,7 @@
                         </div>
                 
                         <!-- Post content -->
-                        <p class="m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
+                        <p class="content-post m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
                 
                         <!-- Post image -->
                         <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
@@ -239,7 +239,7 @@
                         </div>
                 
                         <!-- Post content -->
-                        <p class="m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
+                        <p class="content-post m-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi officiis corrupti sed consequatur facere architecto quibusdam, vero quae esse in.</p>
                 
                         <!-- Post image -->
                         <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
@@ -322,7 +322,7 @@
                 image.onmouseout = function() {
                     this.src = imageSrc;
                 }
-            })
+                })
             }
 
             function setActiveMode(event) {
@@ -352,7 +352,27 @@
             document.querySelectorAll('.followButton').forEach(button => {
                 button.addEventListener('click', followAction);
             });
+            
+            function likeAction(event) {
+                let button = event.currentTarget; 
+                let image = button.querySelector('img'); 
 
+                if (image.src.includes('/icons/surge.svg')) {
+                    image.src = '/icons/surge-active.svg';
+                } else {
+                    image.src = '/icons/surge.svg';
+                }
+            }
+
+            document.querySelectorAll('.container-reaction-wave').forEach(button => {
+                button.addEventListener('click', likeAction);
+            });
+
+            document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
+                element.addEventListener('click', () => {
+                    window.location.href = 'post.html'; 
+                });
+            });
 
         </script>
     </body>

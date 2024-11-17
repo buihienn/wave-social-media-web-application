@@ -1,71 +1,14 @@
-
-.container {
-    height: 100vh; 
-    padding: 0;
+main {
+    margin-top: 5rem;
 }
 
-.row {
-    width: 100%;
+.post {
+    border-bottom: 0.25px solid #DFDFDF;
 }
 
-#Olivia-text{
-    color: var(--black, #000);
-    font-family: "SF Pro";
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 2rem;
+.header-comment {
+    border-bottom: 0.25px solid #DFDFDF;
 }
-
-#avatar-profile {
-    width: 5.5rem; 
-    height: 5.5rem;
-    flex-shrink: 0;
-    border-radius: 50%; 
-    overflow: hidden; 
-    object-fit: cover;
-    top: 0;
-    right: 0;
-}
-
-#special-information{
-    color: var(--gray-text-1, #A1A1A1);
-    font-family: "SF Pro";
-    font-size: 0.9375rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 2rem;
-}
-
-#button-profile{
-    width: 10.5rem;
-    height: 2.5rem;
-    padding: 0.5rem 2.5rem 0.5rem 2.5rem;
-}
-
-.waves-replies{
-    width: 12.5625rem;
-    flex-shrink: 0;
-    color: #000;
-    text-align: center;
-    /* User */
-    font-family: "SF Pro Display";
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 0.8125rem; 
-    letter-spacing: 0.01rem;
-}
-
-.waves {
-    border-bottom: 2px solid var(--Blue, #1A2980);
-
-}
-
-.rep{
-    opacity: 0.5;
-}
-
 
 .avatar-container {
     width: 3rem;
@@ -82,14 +25,18 @@
     overflow: hidden;
 }
 
-.container-post-main-image img {
+.container-main-image {
+    height: 11rem; 
+    overflow: hidden;
+}
+
+.container-main-image img {
     width: auto; 
     height: 100%; 
     object-fit: cover; 
     border-radius: 5%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 
 .follow {
     width: 6rem;
@@ -118,7 +65,7 @@
 
     /* Blue */
     background: linear-gradient(89deg, #1A2980 1.32%, #122CAC 50.1%, #6AF0FF 98.68%);
-    /* -webkit-background-clip: text; */
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     border: 1px solid #999999;
     border-radius: 10px;
@@ -132,13 +79,4 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25) inset;
-}
-
-.follow-link {
-    color: #122CAC;
-    text-decoration: none;
-}
-
-.post {
-    border-bottom: 0.25px solid #DFDFDF;
 }
