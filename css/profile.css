@@ -82,6 +82,11 @@
     overflow: hidden;
 }
 
+.container-post-main-image {
+    height: 11rem; 
+    overflow: hidden;
+}
+
 .container-post-main-image img {
     width: auto; 
     height: 100%; 
@@ -89,7 +94,6 @@
     border-radius: 5%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 
 .follow {
     width: 6rem;
