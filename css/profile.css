@@ -138,3 +138,7 @@
     color: #122CAC;
     text-decoration: none;
 }
+
+.post {
+    border-bottom: 0.25px solid #DFDFDF;
+}
