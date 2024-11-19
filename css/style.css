@@ -84,3 +84,15 @@ h1 {
     letter-spacing: 0.4px;
     color: #000000;
 }
+
+.input1{
+    display: flex;
+    width: 18.375rem;
+    height: 2.75rem;
+    padding: 0 0 0 0.5em;
+    align-items: center;
+    border-radius: 0.625rem;
+    background: rgba(120, 120, 128, 0.12);
+    /* backdrop-filter: blur(25px); */
+    border: 0;
+}
