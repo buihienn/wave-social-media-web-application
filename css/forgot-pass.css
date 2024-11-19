@@ -44,17 +44,6 @@
     margin-bottom: 3em;
 }
 
-input{
-    display: flex;
-    width: 18.375rem;
-    height: 2.75rem;
-    padding: 0 0 0 0.5em;
-    align-items: center;
-    border-radius: 0.625rem;
-    background: rgba(120, 120, 128, 0.12);
-    backdrop-filter: blur(25px);
-}
-
 #sendEmail-button{
     width: 18.5rem;
     height: 2.75rem;
