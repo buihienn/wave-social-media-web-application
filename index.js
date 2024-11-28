@@ -23,23 +23,7 @@ app.engine(
 
 app.set ("view engine", "hbs");
 
-// app.get("/", (req, res) => res.render("index", {title: "Jeopah ABC"}));
-app.get("/", (req, res) => {
-    res.render('login', {title: 'Login', fileCSS: 'login.css'});
-});
-
-app.get('/login', (req, res) => {
-    res.render('login', { title: 'Login', fileCSS: 'login.css'});
-});
-
-app.get("/register", (req, res) => {
-    res.render("register", { title: "Register", fileCSS: 'register.css' });
-});
-
-app.get("/forgot-pass", (req, res) => {
-    res.render("forgot-pass", { title: "Forgot password", fileCSS: 'forgot-pass.css' });
-});
-
+app.use('/', require('./routers/webChatRouter.js'));
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
