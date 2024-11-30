@@ -1,0 +1,78 @@
+<!-- Header -->
+<header class="bg-white fixed-top pt-4">
+    <div class="new-post-container d-flex flex-row align-items-center">
+        <button class="btn btn-sm">
+            <a href="./index.html">
+            <img src="/icons/cancel.svg" alt="cancel" class="img-fluid"/>
+            </a>
+        </button>    
+        <h1 class="m-0">New wave</h1>
+    </div>
+        
+</header>
+<!-- Main -->
+<main>
+    <div class="container p-0">
+        <div class="container-new-post d-flex pt-3">
+            <!-- Avatar -->
+            <div class="container-avatar px-2 d-flex flex-column align-items-center justify-content-between position-relative">
+                <div class="avatar-container d-flex justify-content-center align-items-center">
+                    <img src="/images/avatar.jpg" alt="User Avatar" class="img-fluid avatar">
+                </div>
+                <div class="line-between"></div>
+                <div class="avatar-container d-flex justify-content-center align-items-center" style="width: 1.5rem; height: 1.5rem;">
+                    <img src="/images/avatar.jpg" alt="User Avatar" class="img-fluid avatar">
+                </div>
+            </div>
+        
+            <!--Main container -->
+            <div class="container-post-main container-fluid  me-5 p-0 d-flex flex-column justify-content-between">
+                <!-- User -->
+                <div class="container-user d-flex justify-content-between align-items-start mb-2">
+                    <div class="username d-flex">
+                        <strong class="me-2">Username</strong>
+                        <img src="/icons/verified.svg" alt="Verified" class="d-flex align-self-center" style="width: 1rem; height: 1rem;">
+                    </div>
+                </div>
+                <!-- Post -->
+                <textarea type="text" class="form-control no-border placeholder-color" placeholder="What's your new wave?" style="resize: vertical;" oninput="resizeTextarea(this)" rows="1"></textarea>
+
+
+                <div class="container-add-pic d-flex align-items-center pt-2">
+                    <img src="/icons/picture.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
+                </div>
+                <p class="mb-auto pt-1" style="font-size: 1rem; color: #00000077;">Add new wave</p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="waveBtn me-5" id="post">Post</button>
+        </div>
+    </div>
+</main>
+<!-- Footer -->
+{{> footer}}
+
+<!-- Bootstrap JavaScript Libraries -->
+
+<!--JS event-->
+<script>
+    function tabBarActive() {
+        document.querySelectorAll(".tab-bar").forEach(image => {
+        let imageSrc = image.src;
+        let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
+
+        image.onclick = () => {
+            image.src = activeImageSrc;
+        }
+        image.onmouseout = function() {
+            this.src = imageSrc;
+        }
+    })
+    }
+
+
+    function resizeTextarea(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px'; 
+    }
+</script>
