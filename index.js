@@ -22,6 +22,8 @@ app.use('/', require('./routers/webChatRouter.js'));
 
 app.use('/home', require('./routers/homeRouter.js'));
 app.use('/noti', require('./routers/notiRouter.js'));
+app.use('/new-post', require('./routers/newPostRouter.js'));
+app.use('/follow-list', require('./routers/followListRouter.js'));
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
