@@ -16,6 +16,16 @@ app.engine(
     })
 );
 
+// xóa và tạo lại bảng
+app.get('/create-table', async (req, res) => {
+    let models = require('./models');
+    models.sequelize.sync({ force: true })
+      .then(() => {
+        res.send('Table dropped and recreated');
+      });
+  });
+  
+
 app.set ("view engine", "hbs");
 
 app.use('/', require('./routers/webChatRouter.js'));

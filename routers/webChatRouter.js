@@ -11,11 +11,16 @@ router.get('/', authController.login)
 router.get('/login', authController.login);
 router.get('/register', authController.register);
 router.get('/forgot-pass', authController.forgotPassword);
+<<<<<<< HEAD
 router.get('/home', homeController.home);
 router.get('/post', postController.index);
 router.get('/noti', notiController.noti);
 router.get('/new-post', newPostController.newPost);
 router.get('/follow-list', followListController.followList);
+=======
+router.get('/success-change-page', authController.successChangePage);
+router.get('/thankyou', authController.successChangePage);
+>>>>>>> main
 
 
 module.exports = router;
