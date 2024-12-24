@@ -19,4 +19,7 @@ router.get('/follow-list', followListController.followList);
 router.get('/success-change-page', authController.successChangePage);
 router.get('/thankyou', authController.successChangePage);
 
+router.post("/register", authController.register);
+router.post("/login", authController.login);
+
 module.exports = router;
