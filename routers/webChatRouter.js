@@ -9,13 +9,11 @@ const followListController = require('../controllers/followListController.js');
 
 const {body} = require("express-validator");
 
-
-
 router.get('/', authController.showLogin)
 router.get('/login', authController.showLogin);
 router.get('/register', authController.showRegister);
 router.get('/forgot-pass', authController.showForgotPassword);
-router.get('/home', homeController.home);
+router.get('/home', homeController.showPost);
 router.get('/post', postController.index);
 router.get('/noti', notiController.noti);
 router.get('/new-post', newPostController.newPost);
@@ -32,5 +30,8 @@ router.post('/register',
     authController.register
 );
 
+
+router.post("/register", authController.register);
+router.post("/login", authController.login);
 
 module.exports = router;

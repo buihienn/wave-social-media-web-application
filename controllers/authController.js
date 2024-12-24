@@ -3,6 +3,7 @@ const models = require("../models");
 const bcrypt = require("bcryptjs");
 const {validationResult} = require("express-validator");
 
+
 authController.check = (req, res) => {
     if (accountIsLogin){
         res.render('mainPage', {title: 'Trang chu'});
@@ -32,10 +33,6 @@ authController.showSuccessChangePage = (req, res) =>{
 authController.showThankyou = (req, res) =>{
     res.render ('thankyou', {title: 'Thank you', layout: 'pre-layout', fileCSS: 'thankyou.css'})
 }
-
-//  Username: DataTypes.STRING,
-//     Email: DataTypes.STRING,
-//     Password: DataTypes.STRING,
 
 authController.register = async (req, res) => {
     const {username, password, email} = req.body;
@@ -75,4 +72,15 @@ authController.handlerError = (req, res, next) => {
 };
 
 
+authController.register = async (req, res) => {
+    const {username, firstname, lastName, password} = req.body;
+    try {
+        await models.User.create(username, firstname, lastName, password);
+    }
+    catch {
+
+    }
+};
+
 module.exports = authController;
+
