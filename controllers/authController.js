@@ -60,6 +60,27 @@ authController.register = async (req, res) => {
     const {username, password, email} = req.body;
 
     try {
+        const userByUsername = await models.User.findOne({ where: { Username: username } });
+        const userByEmail = await models.User.findOne({ where: { Email: email } });
+
+        if (userByUsername) {
+            return res.render('register', {
+                title: 'Register',
+                fileCSS: 'register.css',
+                layout: 'pre-layout',
+                message: "Username already exists"
+            });
+        }
+
+        if (userByEmail) {
+            return res.render('register', {
+                title: 'Register',
+                fileCSS: 'register.css',
+                layout: 'pre-layout',
+                message: "Email already exists"
+            });
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         await models.User.create({
             Username: username, 
@@ -75,9 +96,18 @@ authController.register = async (req, res) => {
 };
 
 authController.login = async (req, res, rememberMe = true) => {
+    const { Op } = require('sequelize');
     const {username, password} = req.body;
     try {
-        const user = await models.User.findOne({where: {Username: username}});
+        // const user = await models.User.findOne({where: {Username: username}});
+        const user = await models.User.findOne({
+            where: {
+                [Op.or]: [
+                    { Username: username },
+                    { Email: username }  // Kiểm tra cả trường Email
+                ]
+            }
+        });
         if (!user){
             return res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout', message: "User not found" });
         }
@@ -93,7 +123,7 @@ authController.login = async (req, res, rememberMe = true) => {
             fullName: user.Name,
         }
         if (rememberMe){
-            res.cookie('username', user.Username);
+            res.cookie('username', username);
             res.cookie('password', password);
         }
         res.redirect('/home');
