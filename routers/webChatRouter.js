@@ -21,6 +21,8 @@ router.get('/follow-list', followListController.followList);
 router.get('/success-change-page', authController.showSuccessChangePage);
 router.get('/thankyou', authController.showThankyou);
 
+router.get("/logout", authController.logout);
+
 // POST
 router.post('/register', 
     body("username").notEmpty().withMessage("Username is required"),
@@ -31,5 +33,6 @@ router.post('/register',
 );
 
 router.post("/login", authController.login);
+
 
 module.exports = router;

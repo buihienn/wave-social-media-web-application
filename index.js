@@ -21,6 +21,7 @@ app.engine(
 );
 app.set ("view engine", "hbs");
 
+
 // nên xoa trước khi ....
 app.get('/create-table', async (req, res) => {
     let models = require('./models');
@@ -50,13 +51,13 @@ app.use(
     })
 );
 
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
+
 
 app.use('/', require('./routers/webChatRouter.js'));
-app.use('/home', require('./routers/webChatRouter.js'));
-app.use('/post', require('./routers/webChatRouter.js'));
-app.use('/noti', require('./routers/webChatRouter.js'));
-app.use('/new-post', require('./routers/webChatRouter.js'));
-app.use('/follow-list', require('./routers/webChatRouter.js'));
 
 app.use((req, res, next)=> {
     res.status(404).send('File not found!');
