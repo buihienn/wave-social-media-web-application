@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": "postgres",
+    "password": "147456369",
     "database": "wave_social_media",
     "host": "127.0.0.1",
     "dialect": "postgres",
@@ -9,15 +9,14 @@
   },
   "test": {
     "username": "postgres",
-    "password": "postgres",
+    "password": null,
     "database": "wave_social_media",
     "host": "127.0.0.1",
-    "dialect": "postgres",
-    "port": 5432
+    "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
-    "password": "postgres",
+    "password": "147456369",
     "database": "wave_social_media",
     "host": "127.0.0.1",
     "dialect": "postgres",

@@ -6,24 +6,39 @@
 
     <div><h1 id ="text-header">Login</h1></div>
     <div>Join to connect, discover and surf the latest waves </div>
-
-    <div class = "login-container">
+    <p class = "mb-4 text-danger">{{{message}}}</p>
+    <form class = "login-container" action = "/login" method = "POST">
         <div class="mb-3">
-            <input class = "input1" type="email" id="email" placeholder="Email address or username">
+            <input class = "input1" type="" id="email" placeholder="Email address or username" name="username" value="{{username}}" required>
         </div>
         <div class="mb-3 position-relative">
-            <input class = "input1" type="password" id="password" placeholder="Your password">
+            <input class = "input1" type="password" id="password" placeholder="Your password" name="password" value="{{password}}" required>
             <img src="/images/Hide pass.png" id="toggle-password"  alt="Toggle Password">
         </div>
 
         <div class = "forget-text d-flex justify-content-end mb-4"><a href = "/forgot-pass">Forget password</a></div>
         
-        <div><button class="waveBtn" id="login-button">Login</button></div>
-    </div>
+        <div><button class="waveBtn" id="login-button" type="submit">Login</button></div>
+    </form>
 
     <div>
         <span>Don't have an account?</span>
         <a id = "Register" href="/register" >Register</a>
     </div>
+
+    <script>
+        document.querySelectorAll('#toggle-password').forEach((toggle) => {
+            toggle.addEventListener('click', (event) => {
+                const input = event.target.previousElementSibling;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    event.target.src = '/images/Show pass.svg'; 
+                } else {
+                    input.type = 'password';
+                    event.target.src = '/images/Hide pass.png';
+                }
+            });
+        });
+    </script>
 
 </div>

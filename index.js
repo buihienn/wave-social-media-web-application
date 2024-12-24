@@ -5,23 +5,12 @@ const port = 3000;
 const expressHbs = require("express-handlebars");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const authController = require('./controllers/authController.js');
 
 app.use(express.static(__dirname + "/public"))
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
 
 app.engine(
-<<<<<<< HEAD
-  "hbs",
-  expressHbs.engine ({
-    layoutsDir: __dirname + "/views/layouts",
-    partialsDir: __dirname + "/views/partials",
-    extname: "hbs",
-    defaultLayout: "layout",
-    runtimeOptions: {
-      allowProtoPropertiesByDefault: true,
-    }
-  })
-=======
     "hbs",
     expressHbs.engine ({
         layoutsDir: __dirname + "/views/layouts",
@@ -36,17 +25,20 @@ app.engine(
             eq: (a, b) => a === b, // Helper so sánh bằng
         },
     })
->>>>>>> 94f994f (add show user profile and waves)
 );
 
-// xóa và tạo database
+app.set ("view engine", "hbs");
+
+
+// nên xoa trước khi ....
 app.get('/create-table', async (req, res) => {
     let models = require('./models');
     models.sequelize.sync({ force: true })
-      .then(() => {
+    .then(() => {
         res.send('Table dropped and recreated');
-      });
-  });
+    });
+});
+
 // cau hinh cho  phpe doc du lieu ohuong thuc POST
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -67,22 +59,21 @@ app.use(
     })
 );
 
-app.set ("view engine", "hbs");
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
+
 
 app.use('/', require('./routers/webChatRouter.js'));
-app.use('/home', require('./routers/webChatRouter.js'));
-app.use('/post', require('./routers/webChatRouter.js'));
-app.use('/noti', require('./routers/webChatRouter.js'));
-app.use('/new-post', require('./routers/webChatRouter.js'));
-app.use('/follow-list', require('./routers/webChatRouter.js'));
 
 app.use((req, res, next)=> {
-  res.status(404).send('File not found!');
+    res.status(404).send('File not found!');
 })
-
+  
 app.use((error, req, res, next)=> {
-  console.error(error);
-  res.status(500).send('Internal server error');
+    console.error(error);
+    res.status(500).send('Internal server error');
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
