@@ -6,12 +6,14 @@ const postController = require('../controllers/postController.js');
 const notiController = require('../controllers/notiController.js');
 const newPostController = require('../controllers/newPostController.js');
 const followListController = require('../controllers/followListController.js');
+const profileController = require('../controllers/profileController.js');
 
 router.get('/', authController.login)
 router.get('/login', authController.login);
 router.get('/register', authController.register);
 router.get('/forgot-pass', authController.forgotPassword);
 router.get('/home', homeController.showPost);
+router.get('/profile', profileController.showProfile);
 router.get('/post', postController.index);
 router.get('/noti', notiController.noti);
 router.get('/new-post', newPostController.newPost);

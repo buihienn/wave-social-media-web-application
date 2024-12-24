@@ -10,6 +10,7 @@ app.use(express.static(__dirname + "/public"))
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
 
 app.engine(
+<<<<<<< HEAD
   "hbs",
   expressHbs.engine ({
     layoutsDir: __dirname + "/views/layouts",
@@ -20,6 +21,22 @@ app.engine(
       allowProtoPropertiesByDefault: true,
     }
   })
+=======
+    "hbs",
+    expressHbs.engine ({
+        layoutsDir: __dirname + "/views/layouts",
+        partialsDir: __dirname + "/views/partials",
+        extname: "hbs",
+        defaultLayout: "layout",
+        runtimeOptions: {
+            allowProtoPropertiesByDefault: true, 
+            allowProtoMethodsByDefault: true,  
+        },
+        helpers: {
+            eq: (a, b) => a === b, // Helper so sánh bằng
+        },
+    })
+>>>>>>> 94f994f (add show user profile and waves)
 );
 
 // xóa và tạo database

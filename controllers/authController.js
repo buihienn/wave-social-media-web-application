@@ -42,4 +42,46 @@ authController.register = async (req, res) => {
     }
 };
 
+authController.login = async (req, res, rememberMe = true) => {
+    const {username, password} = req.body;
+    try {
+        const user = await models.User.findOne({where: {Username: username}});
+        if (!user){
+            return res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout', message: "User not found" });
+        }
+
+        if (!bcrypt.compareSync(password, user.Password)) {
+            return res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout', message: "Wrong password" });
+        }
+
+        
+        req.session.user = {
+            id: user.UserID,
+            username: user.Username,
+            fullName: user.Name,
+        }
+
+        if (rememberMe){
+            res.cookie('username', user.Username);
+            res.cookie('password', password);
+        }
+        res.redirect('/home');
+    } catch {
+        res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout' });
+    }
+};
+
+authController.logout = (req, res) => {
+    req.session.destroy();
+    res.redirect("/login");
+};
+
+authController.authenticate = (req, res, next) => {
+    if (!req.session.user){
+        return res.redirect("/login");
+    }
+    next();
+};
+
 module.exports = authController;
+
