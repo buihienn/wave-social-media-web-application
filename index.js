@@ -5,6 +5,7 @@ const port = 3000;
 const expressHbs = require("express-handlebars");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const authController = require('./controllers/authController.js');
 
 app.use(express.static(__dirname + "/public"))
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
@@ -18,7 +19,7 @@ app.engine(
         defaultLayout: "layout"
     })
 );
-
+app.set ("view engine", "hbs");
 
 // cau hinh cho  phpe doc du lieu ohuong thuc POST
 app.use(express.json());
@@ -47,10 +48,6 @@ app.get('/create-table', async (req, res) => {
         res.send('Table dropped and recreated');
     });
 });
-  
-
-
-app.set ("view engine", "hbs");
 
 app.use('/', require('./routers/webChatRouter.js'));
 app.use('/home', require('./routers/webChatRouter.js'));
