@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href = "../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href = "/css/edit-profile.css" rel = "stylesheet"/>
+    <link href = "/css/style.css" rel = "stylesheet"/>
+
+    <title>Wave | Edit profile</title>
+    <!-- Favicon -->
+    <link rel="icon" href="/icons/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header></header>
+    <main> 
+        <div class="container "> 
+            <div class = "status-iphone"></div>
+            <div class = "edit-profile-back w-100 d-flex align-items-center justify-content-start pt-4 pb-2">
+                <div class = "ms-3 me-3">
+                    <a href = "profile.html">
+                        <img src="/icons/back.svg" alt = "back">
+                    </a>
+                </div>
+                <div id = "edit-text-profile">Edit profile</div>
+            </div>
+
+            <div class = "mt-2">
+                <div class = "d-flex flex-column align-items-center">
+                    <div class = "avatar-cont position-relative">
+                        <img src="/images/avatar.jpg" alt="avatar" class="avatar-for-edit-profile">
+                        <img src="/icons/Frame 21.svg" alt="Frame" class="frame-icon">
+                        <img src="/icons/verified.svg" alt="verified" class="verified-icon">
+                    </div>
+                </div>
+                
+                <div class = "p-5 pt-0 pb-0">
+                    <div>
+                        <p class = "m-0 text-profile text-strong-profile">Name</p>
+                        <p class = "m-0 text-profile">Olivia Rodrigo</p>
+                        <hr class = "mt-0">
+                    </div>
+                    <div>
+                        <p class = "m-0 text-profile text-strong-profile">Bio</p>
+                        <p class = "m-0 text-profile">Olivia Rodrigo</p>
+                        <hr class = "mt-0">
+                    </div>
+                    <div>
+                        <p class = "m-0 text-profile text-strong-profile">Link</p>
+                        <p class = "m-0 text-profile" id = "link-profile">olala.com</p>
+                        <hr class = "mt-0">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+
+    <footer class="bg-white fixed-bottom">
+        <nav class="">
+            <ul class="nav d-flex justify-content-center">
+                <li class="nav-item p-2">
+                    <a class="nav-link" href="./index.html">
+                        <img src="/icons/home.svg" alt="home-active">
+                    </a>
+                </li>
+                <li class="nav-item p-2" onclick="tabBarActive()">
+                    <a class="nav-link" href="./notification.html">
+                        <img src="/icons/noti.svg" alt="noti" class="tab-bar">
+                    </a>
+                    <div class="noti" style="height: 6px;">
+                        <img src="/icons/notification.svg" alt="noti" class="d-flex justify-content-center m-auto">
+                    </div>
+                </li>
+                <li class="nav-item p-2" onclick="tabBarActive()">
+                    <a class="nav-link"  href="./new-post.html" >
+                        <img src="/icons/new.svg" alt="new" class="tab-bar">
+                    </a>
+                </li>
+                <li class="nav-item p-2" onclick="tabBarActive()">
+                    <a class="nav-link active" aria-current="page" href="profile.html">
+                        <img src="/icons/profile-active.svg" alt="profile" class="tab-bar">
+                    </a>
+                </li>
+                <li class="nav-item p-2" onclick="tabBarActive()">
+                    <a class="nav-link" href="./login.html">
+                        <img src="/icons/logout.svg" alt="logout" class="tab-bar">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
+
+    
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src = "../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"> </script>
+    <script>
+        function tabBarActive() {
+            document.querySelectorAll(".tab-bar").forEach(image => {
+            let imageSrc = image.src;
+            let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
+    
+            image.onclick = () => {
+                image.src = activeImageSrc;
+            }
+            image.onmouseout = function() {
+                this.src = imageSrc;
+            }
+        })
+        }
+    
+    
+        function resizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = (textarea.scrollHeight) + 'px'; 
+        }
+    </script>
+
+</body>
+</html>

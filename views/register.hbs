@@ -1,0 +1,49 @@
+<div class="container d-flex flex-column align-items-center"> 
+    <div class = "status-iphone"></div>
+    <div class = "Logo">
+        <img src="/images/logo.svg" alt="Logo">
+    </div>
+
+    <div><h1 id = "register-title">Register</h1></div>
+    <div>Join to connect, discover and surf the latest waves </div>
+
+    <form class = "register-container" method = "POST" action = "/register">
+        <div class="mb-3">
+            <input class = "input1" type="email" id="email" name = "email" placeholder="Email address or username">
+        </div>
+        <div class="mb-3">
+            <input class = "input1" type="text" id="username" name = "username" placeholder="Username">
+        </div>
+        <div class="mb-3 position-relative">
+            <input class = "input1" type="password" id="password" name = "password" placeholder="Your password">
+            <img src="/images/Hide pass.png" id="toggle-password"  alt="Toggle Password">
+        </div>
+        <div class="mb-3 position-relative">
+            <input class = "input1" type="password" id="confirm-password" name = "confirmPassword" placeholder="Confirm password">
+            <img src="/images/Hide pass.png" id="toggle-password"  alt="Toggle Password">
+        </div>
+        <div><button class="waveBtn" id = "register-button" type = "submit">Register</button></div>
+    </form>
+
+    <div>
+        <span>Already have an account?</span>
+        <span id = "Login-text"><a href="/login">Login</a></span>
+    </div>
+
+    <script>
+        document.querySelectorAll('#toggle-password').forEach((toggle) => {
+            toggle.addEventListener('click', (event) => {
+                const input = event.target.previousElementSibling;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    event.target.src = '/images/Show pass.svg'; 
+                } else {
+                    input.type = 'password';
+                    event.target.src = '/images/Hide pass.png';
+                }
+            });
+        });
+    </script>
+
+</div>
+
