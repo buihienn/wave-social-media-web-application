@@ -1,4 +1,6 @@
 const authController = {};
+const models = require("../models");
+
 
 authController.check = (req, res) => {
     if (accountIsLogin){
@@ -29,5 +31,15 @@ authController.successChangePage = (req, res) =>{
 authController.thankyou = (req, res) =>{
     res.render ('thankyou', {title: 'Thank you', layout: 'pre-layout', fileCSS: 'thankyou.css'})
 }
+
+authController.register = async (req, res) => {
+    const {username, firstname, lastName, password} = req.body;
+    try {
+        await models.User.create(username, firstname, lastName, password);
+    }
+    catch {
+
+    }
+};
 
 module.exports = authController;
