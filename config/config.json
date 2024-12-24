@@ -1,30 +1,26 @@
 {
   "development": {
     "username": "postgres",
-    "password": "147456369",
-    "database": "chat_website",
+    "password": "postgres",
+    "database": "wave_social_media",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "port": 5432
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "wave_social_media",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres",
+    "port": 5432
   },
   "production": {
     "username": "postgres",
-    "password": "147456369",
-    "database": "chat_website",
+    "password": "postgres",
+    "database": "wave_social_media",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
+    "port": 5432
   }
 }
