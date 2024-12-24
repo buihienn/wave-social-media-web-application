@@ -16,9 +16,17 @@ app.engine(
         layoutsDir: __dirname + "/views/layouts",
         partialsDir: __dirname + "/views/partials",
         extname: "hbs",
-        defaultLayout: "layout"
+        defaultLayout: "layout",
+        runtimeOptions: {
+            allowProtoPropertiesByDefault: true, 
+            allowProtoMethodsByDefault: true,  
+        },
+        helpers: {
+            eq: (a, b) => a === b, // Helper so sánh bằng
+        },
     })
 );
+
 app.set ("view engine", "hbs");
 
 

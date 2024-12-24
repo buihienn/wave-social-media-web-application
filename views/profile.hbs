@@ -1,0 +1,113 @@
+<main> 
+    <div class="container-fluid ps-0 pe-0 d-flex flex-column align-items-center" style="margin-bottom: 65px;">
+        <div class="row p-3 flex-shrink-0">
+            <div class="position-relative p-0">
+                <p class="m-0" id="Olivia-text">{{user.Name}}</p>
+                <p class="m-0">{{user.Username}}</p>
+                <img class="position-absolute" id="avatar-profile" src="{{user.ProfilePicture}}" alt="avatar">
+            </div>
+            <div class="p-0">{{user.Bio}}</div>
+            <div class="p-0 pb-2" id="special-information">
+                <a href="./follow-list.html" class="follow-link">412K followers</a> . {{user.Link}}
+            </div>
+            <div class="two-button p-0 d-flex justify-content-between">
+                <div><a href="edit-profile.html"><button class="waveBtn" id="button-profile">Edit profile</button></a></div>
+                <div><button class="waveBtn" id="button-profile">Share profile</button></div>
+            </div>
+        </div>
+        <div class="row container-fluid p-0 flex-grow-1 overflow-auto">
+            {{#each posts}}
+            <div class="post d-flex py-2 ps-0 pe-0 border-bottom">
+                <div class="container-avatar px-2">
+                    <div class="avatar-container">
+                        <img src="{{user.ProfilePicture}}" alt="User Avatar" class="img-fluid avatar">
+                    </div>
+                </div>
+                <div class="container-post-main container-fluid p-0 d-flex flex-column">
+                    <div class="container-user d-flex justify-content-between align-items-start mb-2">
+                        <div class="container-user-first d-flex flex-column align-items-start">
+                            <div class="username d-flex">
+                                <strong class="me-2">{{user.Username}}</strong>
+                                <img src="/icons/verified.svg" alt="Verified" class="d-flex align-self-center" style="width: 1rem; height: 1rem;">
+                            </div>
+                            <small class="text-muted">{{timeAgo}}</small>
+                        </div>
+                        <div class="container-user-end d-flex align-items-center">
+                            <button class="btn btn-sm">
+                                <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Post content -->
+                    <p class="content-post m-0">{{Content}}</p>
+                    <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                        <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
+                        <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
+                        <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
+                    </div>
+                    <div class="container-reaction d-flex">
+                        <div class="container-reaction-wave d-flex align-items-center me-4">
+                            <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
+                            <small class="text-muted">14K</small>
+                        </div>
+                        <div class="container-reaction-comment d-flex align-items-center me-4">
+                            <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
+                            <small class="text-muted">200</small>
+                        </div>
+                        <div class="container-reaction-copy d-flex align-items-center">
+                            <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</main>  
+
+<!-- Footer -->
+{{> footer}}
+
+<script>
+    function tabBarActive() {
+        document.querySelectorAll(".tab-bar").forEach(image => {
+        let imageSrc = image.src;
+        let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
+
+        image.onclick = () => {
+            image.src = activeImageSrc;
+        }
+        image.onmouseout = function() {
+            this.src = imageSrc;
+        }
+    })
+    }
+
+
+    function resizeTextarea(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px'; 
+    }
+
+    function likeAction(event) {
+        let button = event.currentTarget; 
+        let image = button.querySelector('img'); 
+
+        if (image.src.includes('/icons/surge.svg')) {
+            image.src = '/icons/surge-active.svg';
+        } else {
+            image.src = '/icons/surge.svg';
+        }
+    }
+
+    document.querySelectorAll('.container-reaction-wave').forEach(button => {
+        button.addEventListener('click', likeAction);
+    });
+
+    document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
+        element.addEventListener('click', () => {
+            window.location.href = 'post.html'; 
+        });
+    });
+
+</script>

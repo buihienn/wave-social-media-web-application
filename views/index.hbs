@@ -51,9 +51,9 @@
         
                 <!-- Post image -->
                 <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
-                    <img src="{{PictureURL}}" alt="{{PostIDPostID}}" class="img-fluid me-2">
-                    <img src="{{PictureURL}}" alt="{{PostIDPostID}}" class="img-fluid me-2">
-                    <img src="{{PictureURL}}" alt="{{PostIDPostID}}" class="img-fluid me-2">
+                    <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
+                    <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
+                    <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
                 </div>
                 <!-- Reaction -->
                 <div class="container-reaction d-flex">
@@ -76,14 +76,11 @@
         </div>
         {{/each}}
     </div>
+    <div id="loading" style="display: none;">Loading...</div>
 </main>
 
 <!-- Footer -->
 {{> footer}}
-
-
-<!-- Bootstrap JavaScript Libraries -->
-
 
 <!--JS event-->
 <script>
@@ -151,3 +148,5 @@
     });
 
 </script>
+<!-- Infinite Scroll -->
+<script src="/javascript/infiniteScroll.js"></script>
