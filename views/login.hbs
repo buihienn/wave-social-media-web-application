@@ -9,10 +9,10 @@
     <p class = "mb-4 text-danger">{{{message}}}</p>
     <form class = "login-container" action = "/login" method = "POST">
         <div class="mb-3">
-            <input class = "input1" type="" id="email" placeholder="Email address or username" name="username" required>
+            <input class = "input1" type="" id="email" placeholder="Email address or username" name="username" value="{{username}}" required>
         </div>
         <div class="mb-3 position-relative">
-            <input class = "input1" type="password" id="password" placeholder="Your password" name="password" required>
+            <input class = "input1" type="password" id="password" placeholder="Your password" name="password" value="{{password}}" required>
             <img src="/images/Hide pass.png" id="toggle-password"  alt="Toggle Password">
         </div>
 

@@ -3,6 +3,17 @@ const models = require("../models");
 const bcrypt = require("bcryptjs");
 const {validationResult} = require("express-validator");
 
+// Handler Error
+authController.handlerError = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+        let message = "";
+        errors.array().forEach((error) => (message += error.msg + "<br>"));
+        res.locals.message = message;
+    }
+    next();
+    
+};
 
 authController.check = (req, res) => {
     if (accountIsLogin){
@@ -14,7 +25,13 @@ authController.check = (req, res) => {
 }
 
 authController.showLogin = (req, res) => {
-    res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout' });
+    res.render('login', { 
+        title: 'Login', 
+        fileCSS: 'login.css', 
+        layout: 'pre-layout',
+        username: req.cookies.username || '',  // Nếu không có cookie, để giá trị mặc định là ''
+        password: req.cookies.password || ''   // Nếu không có cookie, để giá trị mặc định là ''
+    });     
 };
 
 authController.showRegister = (req, res) => {
@@ -57,7 +74,7 @@ authController.register = async (req, res) => {
     }
 };
 
-authController.login = async (req, res) => {
+authController.login = async (req, res, rememberMe = true) => {
     const {username, password} = req.body;
     try {
         const user = await models.User.findOne({where: {Username: username}});
@@ -69,28 +86,32 @@ authController.login = async (req, res) => {
             return res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout', message: "Wrong password" });
         }
 
+        
         req.session.user = {
-            id: user.id,
+            id: user.UserID,
             username: user.Username,
             fullName: user.Name,
+        }
+        if (rememberMe){
+            res.cookie('username', user.Username);
+            res.cookie('password', password);
         }
         res.redirect('/home');
     } catch {
         res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout' });
     }
-}
+};
 
+authController.logout = (req, res) => {
+    req.session.destroy();
+    res.redirect("/login");
+};
 
-// Handler Error
-authController.handlerError = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()){
-        let message = "";
-        errors.array().forEach((error) => (message += error.msg + "<br>"));
-        res.locals.message = message;
+authController.authenticate = (req, res, next) => {
+    if (!req.session.user){
+        return res.redirect("/login");
     }
     next();
-    
 };
 
 module.exports = authController;
