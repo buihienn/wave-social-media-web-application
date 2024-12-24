@@ -32,6 +32,7 @@ authController.thankyou = (req, res) =>{
     res.render ('thankyou', {title: 'Thank you', layout: 'pre-layout', fileCSS: 'thankyou.css'})
 }
 
+<<<<<<< HEAD:controller/authController.js
 authController.register = async (req, res) => {
     const {username, firstname, lastName, password} = req.body;
     try {
@@ -43,3 +44,6 @@ authController.register = async (req, res) => {
 };
 
 module.exports = authController;
+=======
+module.exports = authController;
+>>>>>>> 1146d291fd3041bb46e597b3212f0418102b3adb:controllers/authController.js
