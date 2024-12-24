@@ -34,12 +34,13 @@ authController.showThankyou = (req, res) =>{
     res.render ('thankyou', {title: 'Thank you', layout: 'pre-layout', fileCSS: 'thankyou.css'})
 }
 
-authController.register = async (req, res) => {
-    const {username, password, email} = req.body;
 
+// Login - register
+authController.register = async (req, res) => {
     if (res.locals.message){
         return res.render('register', { title: 'Register', fileCSS: 'register.css', layout: 'pre-layout', message: res.locals.message});
     }
+    const {username, password, email} = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -56,30 +57,40 @@ authController.register = async (req, res) => {
     }
 };
 
+authController.login = async (req, res) => {
+    const {username, password} = req.body;
+    try {
+        const user = await models.User.findOne({where: {Username: username}});
+        if (!user){
+            return res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout', message: "User not found" });
+        }
+
+        if (!bcrypt.compareSync(password, user.Password)) {
+            return res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout', message: "Wrong password" });
+        }
+
+        req.session.user = {
+            id: user.id,
+            username: user.Username,
+            fullName: user.Name,
+        }
+        res.redirect('/home');
+    } catch {
+        res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout' });
+    }
+}
 
 
 // Handler Error
-
 authController.handlerError = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         let message = "";
-        errors.array().forEach((error) => (message += error.msg + "\n"));
+        errors.array().forEach((error) => (message += error.msg + "<br>"));
         res.locals.message = message;
     }
     next();
     
-};
-
-
-authController.register = async (req, res) => {
-    const {username, firstname, lastName, password} = req.body;
-    try {
-        await models.User.create(username, firstname, lastName, password);
-    }
-    catch {
-
-    }
 };
 
 module.exports = authController;

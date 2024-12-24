@@ -25,13 +25,11 @@ router.get('/thankyou', authController.showThankyou);
 router.post('/register', 
     body("username").notEmpty().withMessage("Username is required"),
     body("email").notEmpty().withMessage("Email is required"),
-    body("password").notEmpty().withMessage("Password is required").isLength( {min: 6}).withMessage("Password must be at least 6 characters long"),
+    body("password").notEmpty().withMessage("Password is required").isLength({min: 6}).withMessage("Password must be at least 6 characters long"),
     authController.handlerError,
     authController.register
 );
 
-
-router.post("/register", authController.register);
 router.post("/login", authController.login);
 
 module.exports = router;
