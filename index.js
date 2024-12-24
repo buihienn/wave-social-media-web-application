@@ -7,16 +7,19 @@ app.use(express.static(__dirname + "/public"))
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
 
 app.engine(
-    "hbs",
-    expressHbs.engine ({
-        layoutsDir: __dirname + "/views/layouts",
-        partialsDir: __dirname + "/views/partials",
-        extname: "hbs",
-        defaultLayout: "layout"
-    })
+  "hbs",
+  expressHbs.engine ({
+    layoutsDir: __dirname + "/views/layouts",
+    partialsDir: __dirname + "/views/partials",
+    extname: "hbs",
+    defaultLayout: "layout",
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+    }
+  })
 );
 
-// xóa và tạo lại bảng
+// xóa và tạo database
 app.get('/create-table', async (req, res) => {
     let models = require('./models');
     models.sequelize.sync({ force: true })
@@ -24,7 +27,6 @@ app.get('/create-table', async (req, res) => {
         res.send('Table dropped and recreated');
       });
   });
-  
 
 app.set ("view engine", "hbs");
 
@@ -34,5 +36,14 @@ app.use('/post', require('./routers/webChatRouter.js'));
 app.use('/noti', require('./routers/webChatRouter.js'));
 app.use('/new-post', require('./routers/webChatRouter.js'));
 app.use('/follow-list', require('./routers/webChatRouter.js'));
+
+app.use((req, res, next)=> {
+  res.status(404).send('File not found!');
+})
+
+app.use((error, req, res, next)=> {
+  console.error(error);
+  res.status(500).send('Internal server error');
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

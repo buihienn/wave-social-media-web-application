@@ -11,7 +11,7 @@ router.get('/', authController.login)
 router.get('/login', authController.login);
 router.get('/register', authController.register);
 router.get('/forgot-pass', authController.forgotPassword);
-router.get('/home', homeController.home);
+router.get('/home', homeController.showPost);
 router.get('/post', postController.index);
 router.get('/noti', notiController.noti);
 router.get('/new-post', newPostController.newPost);
