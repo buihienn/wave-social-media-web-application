@@ -19,11 +19,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Notification.init({
-    NotificationID: DataTypes.INTEGER,
+    NotificationID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     UserID: DataTypes.INTEGER,
-    Type: DataTypes.STRING,
-    Timestamp: DataTypes.DATE,
-    IsRead: DataTypes.BOOLEAN,
+    Type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: [['like', 'comment', 'follow']], // Chỉ chấp nhận 'like', 'comment', 'follow'
+      },
+    },
+    IsRead: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     ActionUserID: DataTypes.INTEGER,
   }, {
     sequelize,

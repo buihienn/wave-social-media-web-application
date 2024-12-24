@@ -22,11 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Comment.init({
-    CommentID: DataTypes.INTEGER,
+    CommentID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     PostID: DataTypes.INTEGER,
     UserID: DataTypes.INTEGER,
-    Content: DataTypes.TEXT,
-    Timestamp: DataTypes.DATE
+    Content: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'Comment',

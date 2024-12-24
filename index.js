@@ -29,12 +29,10 @@ app.get('/create-table', async (req, res) => {
 app.set ("view engine", "hbs");
 
 app.use('/', require('./routers/webChatRouter.js'));
-
 app.use('/home', require('./routers/webChatRouter.js'));
 app.use('/post', require('./routers/webChatRouter.js'));
 app.use('/noti', require('./routers/webChatRouter.js'));
 app.use('/new-post', require('./routers/webChatRouter.js'));
 app.use('/follow-list', require('./routers/webChatRouter.js'));
-
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

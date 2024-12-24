@@ -21,8 +21,14 @@ module.exports = (sequelize, DataTypes) => {
   Follower.init({
     FolloweeID: DataTypes.INTEGER,
     FollowerID: DataTypes.INTEGER,
-    UserID: DataTypes.INTEGER,
-    Timestamp: DataTypes.DATE
+    Status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'pending', // Trạng thái mặc định là pending
+      validate: {
+        isIn: [['pending', 'accepted']], // Chỉ chấp nhận 'pending' hoặc 'accepted'
+      },
+    },
   }, {
     sequelize,
     modelName: 'Follower',
