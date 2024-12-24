@@ -7,46 +7,21 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const authController = require('./controllers/authController.js');
 
-
 app.use(express.static(__dirname + "/public"))
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
 
 app.engine(
-  "hbs",
-  expressHbs.engine ({
-    layoutsDir: __dirname + "/views/layouts",
-    partialsDir: __dirname + "/views/partials",
-    extname: "hbs",
-    defaultLayout: "layout",
-    runtimeOptions: {
-      allowProtoPropertiesByDefault: true,
-    }
-  })
+    "hbs",
+    expressHbs.engine ({
+        layoutsDir: __dirname + "/views/layouts",
+        partialsDir: __dirname + "/views/partials",
+        extname: "hbs",
+        defaultLayout: "layout"
+    })
 );
 app.set ("view engine", "hbs");
 
-// cau hinh cho  phpe doc du lieu ohuong thuc POST
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-
-// cau hinh cookie
-app.use(cookieParser(process.env.COOKIE_SECRET || "secret"));
-// cai hinh Session
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET || "my secret",
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            maxAge: 20 * 60 * 1000, // 20 min
-            httpOnly: true,
-            secure: false, // Chỉ bật `true` nếu dùng HTTPS
-        },
-    })
-);
-
-
-// xóa và tạo database
+// nên xoa trước khi ....
 app.get('/create-table', async (req, res) => {
     let models = require('./models');
     models.sequelize.sync({ force: true })
@@ -84,12 +59,12 @@ app.use('/new-post', require('./routers/webChatRouter.js'));
 app.use('/follow-list', require('./routers/webChatRouter.js'));
 
 app.use((req, res, next)=> {
-  res.status(404).send('File not found!');
+    res.status(404).send('File not found!');
 })
-
+  
 app.use((error, req, res, next)=> {
-  console.error(error);
-  res.status(500).send('Internal server error');
+    console.error(error);
+    res.status(500).send('Internal server error');
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
