@@ -9,6 +9,7 @@ const followListController = require('../controllers/followListController.js');
 const profileController = require('../controllers/profileController.js');
 
 const uploadAvatar = require('../middlewares/uploadAvatar');
+const uploadPost = require('../middlewares/uploadPost.js');
 
 const {body} = require("express-validator");
 
@@ -21,12 +22,13 @@ router.get('/home', homeController.showPost);
 
 router.get('/profile', profileController.showProfile);
 router.get('/edit-profile', profileController.showEditProfile);
-router.post('/edit-profile', uploadAvatar.none(), profileController.updateProfile);
-router.post('/upload-avatar-temp', uploadAvatar.single('avatar'), profileController.uploadAvatarTemp);
+router.post('/edit-profile', uploadAvatar.single('avatar'), profileController.updateProfile);
+
+router.get('/new-post', newPostController.newPost);
+router.post('/new-post', uploadPost.single('picture'), newPostController.createPost);
 
 router.get('/post', postController.index);
 router.get('/noti', notiController.noti);
-router.get('/new-post', newPostController.newPost);
 router.get('/follow-list', followListController.followList);
 router.get('/success-change-page', authController.showSuccessChangePage);
 router.get('/thankyou', authController.showThankyou);

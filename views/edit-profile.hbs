@@ -1,5 +1,5 @@
 <main>
-    <div class="container ">
+    <div class="container">
         <div class="status-iphone"></div>
         <div class="edit-profile-back w-100 d-flex align-items-center justify-content-start pt-4 pb-2">
             <div class="ms-3 me-3">
@@ -9,19 +9,16 @@
             </div>
             <div id="edit-text-profile">Edit profile</div>
         </div>
-
         <div class="mt-2">
             <div class="d-flex flex-column align-items-center">
                 <div class="avatar-cont position-relative">
                     <img src="{{user.ProfilePicture}}" alt="avatar" class="avatar-for-edit-profile" id="avatarPreview">
                     <img src="/icons/verified.svg" alt="verified" class="verified-icon">
-                    <input type="file" id="avatarInput" accept="image/*" class="d-none">
                 </div>
                 <button type="button" class="waveBtn mt-2 px-3 py-2" id="editAvatarBtn">Edit Avatar</button>
             </div>
-
             <form action="/edit-profile" method="POST" enctype="multipart/form-data" class="p-5 pt-0 pb-0">
-                <input type="hidden" name="avatarPath" id="avatarPathInput">
+                <input type="file" id="avatarInput" name="avatar" accept="image/*" class="d-none">
                 <div>
                     <p class="m-0 text-profile text-strong-profile">Username</p>
                     <input type="text" class="form-control text-profile" name="username" value="{{user.Username}}" required />
@@ -55,20 +52,6 @@
 
 <!-- Scripts -->
 <script>
-    function tabBarActive() {
-        document.querySelectorAll(".tab-bar").forEach(image => {
-            let imageSrc = image.src;
-            let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
-
-            image.onclick = () => {
-                image.src = activeImageSrc;
-            }
-            image.onmouseout = function() {
-                this.src = imageSrc;
-            }
-        });
-    }
-
     function resizeTextarea(textarea) {
         textarea.style.height = 'auto';
         textarea.style.height = (textarea.scrollHeight) + 'px'; 
@@ -77,32 +60,18 @@
 
 <script>
     document.getElementById('editAvatarBtn').addEventListener('click', () => {
-        document.getElementById('avatarInput').click();
-    });
+    document.getElementById('avatarInput').click();
+});
 
-    document.getElementById('avatarInput').addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append('avatar', file);
-
-            // Gửi ảnh lên server tạm thời
-            fetch('/upload-avatar-temp', {
-                method: 'POST',
-                body: formData,
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.avatarPath) {
-                        // Hiển thị ảnh xem trước
-                        document.getElementById('avatarPreview').src = data.avatarPath;
-                        // Lưu đường dẫn vào input ẩn
-                        document.getElementById('avatarPathInput').value = data.avatarPath;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error uploading avatar:', error);
-                });
-        }
-    });
+document.getElementById('avatarInput').addEventListener('change', (event) => {
+    const file = event.target.files[0]; // Lấy file từ input
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const preview = document.getElementById('avatarPreview');
+            preview.src = e.target.result; // Hiển thị ảnh dưới dạng Base64
+        };
+        reader.readAsDataURL(file); // Đọc file và chuyển đổi thành URL dạng Base64
+    }
+});
 </script>
