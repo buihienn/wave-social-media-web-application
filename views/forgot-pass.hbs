@@ -1,14 +1,18 @@
 <div class="container d-flex flex-column align-items-center"> 
     <div class = "status-iphone"></div>
-    <div class = "Logo">
-        <img src="/images/logo.svg" alt="Logo">
+    <div class="Logo">
+        <a href="/login">
+            <img src="/images/logo.svg" alt="Logo">
+        </a>
     </div>
 
     <div><h1 id ="text-header">Forgot password?</h1></div>
     <div style = "width: 18.5rem">Don't worry! Please enter the email address linked to your account to reset your password.</div>
-    <form class = "s1-container">
+    <p class = "mb-4 text-danger">{{{message}}}</p>
+    <p class = "mb-4 text-success">{{{messageSuccess}}}</p>
+    <form class = "s1-container" action="/reset-password" method="POST">
         <div class="mb-3">
-            <input class ="input1" type="email" id="email" placeholder="Email address" name="email">
+            <input class ="input1" type="email" id="email" placeholder="Email address" name="email" required>
         </div>
         <div><button class= "waveBtn" id="sendEmail-button" type="sumbit">Send email</button></div>
     </form>
