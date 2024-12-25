@@ -12,7 +12,8 @@ module.exports = {
         Name: "Bui Hien",
         Bio: "hello",
         Link: "buihienportfolio.com",
-        ProfilePicture: "avatars/avatar1.jpg"
+        ProfilePicture: "avatars/avatar1.jpg",
+        isVerify: true,
       },
       {
         Username: "vinhhho",
@@ -21,7 +22,8 @@ module.exports = {
         Name: "Phu Vinh",
         Bio: "hello",
         Link: "phuvinhportfolio.com",
-        ProfilePicture: "avatars/avatar2.jpg"
+        ProfilePicture: "avatars/avatar2.jpg",
+        isVerify: true,
       },
       {
         Username: "diuhuyen",
@@ -30,7 +32,8 @@ module.exports = {
         Name: "Diu Huyen",
         Bio: "hello",
         Link: "diuhuyenportfolio.com",
-        ProfilePicture: "avatars/avatar3.jpg"
+        ProfilePicture: "avatars/avatar3.jpg",
+        isVerify: true,
       },
       {
         Username: "ngoclan",
@@ -39,7 +42,8 @@ module.exports = {
         Name: "Ngoc Lan",
         Bio: "Enthusiastic coder.",
         Link: "ngoclanportfolio.com",
-        ProfilePicture: "avatars/avatar4.jpg"
+        ProfilePicture: "avatars/avatar4.jpg",
+        isVerify: true,
       },
       {
         Username: "quangminh",
@@ -48,7 +52,8 @@ module.exports = {
         Name: "Quang Minh",
         Bio: "Web developer and designer.",
         Link: "quangminhportfolio.com",
-        ProfilePicture: "avatars/avatar5.jpg"
+        ProfilePicture: "avatars/avatar5.jpg",
+        isVerify: true,
       },
       {
         Username: "hoanganh",
@@ -57,7 +62,8 @@ module.exports = {
         Name: "Hoang Anh",
         Bio: "Lover of AI and ML.",
         Link: "hoanganhportfolio.com",
-        ProfilePicture: "avatars/avatar6.jpg"
+        ProfilePicture: "avatars/avatar6.jpg",
+        isVerify: true,
       },
       {
         Username: "trungkien",
@@ -66,7 +72,8 @@ module.exports = {
         Name: "Trung Kien",
         Bio: "Passionate about backend development.",
         Link: "trungkienportfolio.com",
-        ProfilePicture: "avatars/avatar7.jpg"
+        ProfilePicture: "avatars/avatar7.jpg",
+        isVerify: true,
       },
       {
         Username: "thanhhoa",
@@ -75,7 +82,8 @@ module.exports = {
         Name: "Thanh Hoa",
         Bio: "A creative UI/UX designer.",
         Link: "thanhhoaportfolio.com",
-        ProfilePicture: "avatars/avatar8.jpg"
+        ProfilePicture: "avatars/avatar8.jpg",
+        isVerify: true,
       },
       {
         Username: "minhtuan",
@@ -84,7 +92,8 @@ module.exports = {
         Name: "Minh Tuan",
         Bio: "Fullstack developer with a love for AI.",
         Link: "minhtuanportfolio.com",
-        ProfilePicture: "avatars/avatar9.jpg"
+        ProfilePicture: "avatars/avatar9.jpg",
+        isVerify: true,
       },
       {
         Username: "phuongthao",
@@ -93,7 +102,8 @@ module.exports = {
         Name: "Phuong Thao",
         Bio: "Experienced in data science and ML.",
         Link: "phuongthaoprofile.com",
-        ProfilePicture: "avatars/avatar10.jpg"
+        ProfilePicture: "avatars/avatar10.jpg",
+        isVerify: true,
       },
       {
         Username: "anhquan",
@@ -102,7 +112,8 @@ module.exports = {
         Name: "Anh Quan",
         Bio: "Building scalable web applications.",
         Link: "anhquanportfolio.com",
-        ProfilePicture: "avatars/avatar11.jpg"
+        ProfilePicture: "avatars/avatar11.jpg",
+        isVerify: true,
       },
     ];
 

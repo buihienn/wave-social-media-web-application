@@ -21,6 +21,14 @@ module.exports = {
       Timestamp: {
         type: Sequelize.DATE
       },
+      Status: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'pending', 
+        validate: {
+          isIn: [['pending', 'accepted']], 
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
