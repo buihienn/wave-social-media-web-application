@@ -192,4 +192,3 @@ authController.verifyEmail = async (req, res) => {
   };
 
 module.exports = authController;
-
