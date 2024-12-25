@@ -1,32 +1,38 @@
 <footer class="bg-white fixed-bottom">
-    <nav class="">
+    <nav>
         <ul class="nav d-flex justify-content-center">
+            <!-- Home -->
             <li class="nav-item p-2">
-                <a class="nav-link active" aria-current="page" href="/home">
-                    <img src="/icons/home-active.svg" alt="home-active">
+                <a class="nav-link" href="/home">
+                    <img src="{{#if (eq currentPage 'home')}}/icons/home-active.svg{{else}}/icons/home.svg{{/if}}" alt="home">
                 </a>
             </li>
-            <li class="nav-item p-2" onclick="tabBarActive()">
+
+            <!-- Notifications -->
+            <li class="nav-item p-2">
                 <a class="nav-link" href="/noti">
-                    <img src="/icons/noti.svg" alt="noti" class="tab-bar">
-                </a>
-                <div class="noti" style="height: 6px;">
-                    <img src="/icons/notification.svg" alt="noti" class="d-flex justify-content-center m-auto">
-                </div>
-            </li>
-            <li class="nav-item p-2" onclick="tabBarActive()">
-                <a class="nav-link" href="./new-post" >
-                    <img src="/icons/new.svg" alt="new" class="tab-bar">
+                    <img src="{{#if (eq currentPage 'noti')}}/icons/noti-active.svg{{else}}/icons/noti.svg{{/if}}" alt="noti">
                 </a>
             </li>
-            <li class="nav-item p-2" onclick="tabBarActive()">
+
+            <!-- New Post -->
+            <li class="nav-item p-2">
+                <a class="nav-link" href="/new-post">
+                    <img src="{{#if (eq currentPage 'new-post')}}/icons/new-active.svg{{else}}/icons/new.svg{{/if}}" alt="new">
+                </a>
+            </li>
+
+            <!-- Profile -->
+            <li class="nav-item p-2">
                 <a class="nav-link" href="/profile">
-                    <img src="/icons/profile.svg" alt="profile" class="tab-bar">
+                    <img src="{{#if (eq currentPage 'profile')}}/icons/profile-active.svg{{else}}/icons/profile.svg{{/if}}" alt="profile">
                 </a>
             </li>
-            <li class="nav-item p-2" onclick="tabBarActive()">
+
+            <!-- Logout -->
+            <li class="nav-item p-2">
                 <a class="nav-link" href="/logout">
-                    <img src="/icons/logout.svg" alt="logout" class="tab-bar">
+                    <img src="{{#if (eq currentPage 'logout')}}/icons/logout-active.svg{{else}}/icons/logout.svg{{/if}}" alt="logout">
                 </a>
             </li>
         </ul>

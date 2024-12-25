@@ -260,4 +260,3 @@ authController.resetPassword = async (req, res) => {
 
 
 module.exports = authController;
-
