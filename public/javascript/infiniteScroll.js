@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </button>
                                 </div>
                             </div>
-                            <p class="content-post m-0">${post.Content}</p>
-                            <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                            <p class="content-post m-0" data-post-id="${post.PostID}">${post.Content}</p>
+                            <div class="container-post-main-image my-2 led-fx flex-row overflow-auto">
                                 <img src="${post.PictureURL}" alt="${post.PostID}" class="img-fluid me-2">
                             </div>
                             <div class="container-reaction d-flex">
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
                                     <small class="text-muted">14K</small>
                                 </div>
-                                <div class="container-reaction-comment d-flex align-items-center me-4">
+                                <div class="container-reaction-comment d-flex align-items-center me-4" data-post-id="${post.PostID}">
                                     <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
                                     <small class="text-muted">200</small>
                                 </div>
@@ -79,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                     postContainer.appendChild(postElement);
                 });
+
+                attachPostClickEvents();
 
                 offset += limit; // Cập nhật offset
             } catch (error) {

@@ -27,7 +27,7 @@ router.post('/edit-profile', uploadAvatar.single('avatar'), profileController.up
 router.get('/new-post', newPostController.newPost);
 router.post('/new-post', uploadPost.single('picture'), newPostController.createPost);
 
-router.get('/post', postController.index);
+router.get('/posts/:postId', postController.getPostDetails);
 router.get('/noti', notiController.noti);
 router.get('/follow-list', followListController.followList);
 router.get('/success-change-page', authController.showSuccessChangePage);
