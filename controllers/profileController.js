@@ -11,8 +11,6 @@ profileController.showProfile = async (req, res) => {
     res.locals.layout = "layout";
     res.locals.currentPage = 'profile';
 
-    console.log('Session:', req.session.user);
-
     // Lấy UserID từ session
     const userID = req.session.user.id;
 
@@ -62,57 +60,35 @@ profileController.uploadAvatarTemp = (req, res) => {
 
 profileController.updateProfile = async (req, res) => {
     const userID = req.session.user.id;
-    const { name, bio, link, avatarPath } = req.body;
-
-    console.log('Request Body:', req.body);
-
+    const { username, name, bio, link } = req.body;
 
     try {
-        let finalAvatarPath;
+        let avatarPath;
 
-        // Kiểm tra nếu không có avatarPath, giữ nguyên avatar hiện tại
-        if (!avatarPath) {
-            // Lấy avatar hiện tại từ database
-            const user = await models.User.findOne({ where: { UserID: userID } });
-            finalAvatarPath = user.ProfilePicture; // Sử dụng avatar cũ
+        // Kiểm tra nếu có file upload
+        if (req.file) {
+            avatarPath = `/avatars/${req.file.filename}`; // Đường dẫn ảnh
         } else {
-            // Nếu avatarPath có giá trị, di chuyển ảnh từ thư mục tạm sang thư mục chính thức
-            const tempPath = path.join(__dirname, `../public${avatarPath}`);
-            const finalPath = `/avatars/${path.basename(avatarPath)}`;
-            const newPath = path.join(__dirname, `../public${finalPath}`);
-
-            if (fs.existsSync(tempPath)) {
-                fs.renameSync(tempPath, newPath);
-                finalAvatarPath = finalPath;
-            } else {
-                console.error('Temporary file not found:', tempPath);
-            }
+            // Nếu không upload ảnh mới, giữ nguyên avatar hiện tại
+            const user = await models.User.findOne({ where: { UserID: userID } });
+            avatarPath = user.ProfilePicture;
         }
 
         // Cập nhật thông tin người dùng
-        console.log('Updating user profile with:', {
-            Name: name,
-            Bio: bio,
-            Link: link,
-            ProfilePicture: finalAvatarPath,
-        });
-
         await models.User.update(
-            { Name: name, Bio: bio, Link: link, ProfilePicture: finalAvatarPath },
+            { Username: username, Name: name, Bio: bio, Link: link, ProfilePicture: avatarPath },
             { where: { UserID: userID } }
         );
 
-        // Cập nhật thông tin trong session
+        // Cập nhật session
         req.session.user.fullName = name;
-        req.session.user.profilePicture = finalAvatarPath;
+        req.session.user.profilePicture = avatarPath;
 
         res.redirect('/profile');
     } catch (error) {
-        console.error(error);
+        console.error('Error updating profile:', error);
         res.render('edit-profile', {
-            title: "Wave | Edit Profile",
-            fileCSS: "edit-profile.css",
-            layout: "layout",
+            title: "Edit Profile",
             error: "Unable to update profile. Please try again.",
         });
     }
