@@ -6,6 +6,7 @@ const expressHbs = require("express-handlebars");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const authController = require('./controllers/authController.js');
+const flash = require('connect-flash');
 
 app.use(express.static(__dirname + "/public"))
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
@@ -58,6 +59,9 @@ app.use(
         },
     })
 );
+
+// Thêm connect-flash
+app.use(flash());
 
 app.use((req, res, next) => {
     res.locals.user = req.session.user;

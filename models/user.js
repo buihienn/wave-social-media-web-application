@@ -49,13 +49,25 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    Username: DataTypes.STRING,
-    Email: DataTypes.STRING,
+    Username: {
+      type: DataTypes.STRING,
+      unique: true, 
+      allowNull: false, 
+    },
+    Email: {
+      type: DataTypes.STRING,
+      unique: true, 
+      allowNull: false, 
+    },
     Password: DataTypes.STRING,
     Name: DataTypes.STRING,
     Bio: DataTypes.TEXT,
     Link: DataTypes.STRING,
-    ProfilePicture: DataTypes.STRING
+    ProfilePicture: DataTypes.STRING,
+    isVerify: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    }
   }, {
     sequelize,
     modelName: 'User',
