@@ -129,6 +129,15 @@ authController.login = async (req, res, rememberMe = true) => {
             return res.render('login', { title: 'Login', fileCSS: 'login.css', layout: 'pre-layout', message: "Wrong password" });
         }
 
+        if (!user.isVerify) {
+            return res.render('login', { 
+                title: 'Login', 
+                fileCSS: 'login.css', 
+                layout: 'pre-layout', 
+                message: "Please verify your email before logging in" 
+            });
+        }
+
         
         req.session.user = {
             id: user.UserID,
@@ -176,14 +185,15 @@ authController.verifyEmail = async (req, res) => {
             return res.status(404).send('User not found');
         }
 
-        if (user.isVerified) {
-            return res.status(200).json({ message: 'Email is already verified' });
+        if (user.isVerify) {
+            req.flash('info', 'Email is already verified');
+            return res.redirect('/login');
         }
       
-        user.isVerified = true;
+        user.isVerify= true;
         await user.save();
-  
-        res.render ('thankyou', {title: 'Thank you', layout: 'pre-layout', fileCSS: 'thankyou.css'})
+        req.flash('info', 'Email is verified');
+        res.redirect('/login');
   
     } catch (error) {
         res.status(400).send('Invalid or expired token');

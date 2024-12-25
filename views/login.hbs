@@ -6,6 +6,11 @@
 
     <div><h1 id ="text-header">Login</h1></div>
     <div>Join to connect, discover and surf the latest waves </div>
+    {{#if info}}
+        <div class="alert alert-info">
+            {{info}}
+        </div>
+    {{/if}}
     <p class = "mb-4 text-danger">{{{message}}}</p>
     <form class = "login-container" action = "/login" method = "POST">
         <div class="mb-3">
