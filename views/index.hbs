@@ -47,7 +47,7 @@
                 </div>
         
                 <!-- Post content -->
-                <p class="content-post m-0">{{Content}}</p>
+                <p class="content-post m-0" data-post-id="{{PostID}}">{{Content}}</p>
         
                 <!-- Post image -->
                 <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
@@ -58,10 +58,10 @@
                     <!-- Wave -->
                     <div class="container-reaction-wave d-flex align-items-center me-4">
                         <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
-                        <small class="text-muted">14K</small>
+                        <small class="text-muted">{{like.length}}</small>
                     </div>
                     <!-- Comment -->
-                    <div class="container-reaction-comment d-flex align-items-center me-4">
+                    <div class="container-reaction-comment d-flex align-items-center me-4" data-post-id="{{PostID}}">
                         <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
                         <small class="text-muted">200</small>
                     </div>
@@ -141,10 +141,37 @@
 
     document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
         element.addEventListener('click', () => {
-            window.location.href = 'post.html'; 
+            const postId = element.getAttribute('data-post-id'); // Lấy ID bài đăng từ data-post-id
+            if (postId) {
+                window.location.href = `/posts/${postId}`; // Chuyển hướng đến URL bài đăng
+            } else {
+                console.error('Post ID not found for the clicked element.');
+            }
         });
     });
 
+    // Hàm gắn sự kiện cho bài đăng
+    function attachPostClickEvents() {
+        document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
+            element.removeEventListener('click', handlePostClick); // Xóa sự kiện cũ (nếu có)
+            element.addEventListener('click', handlePostClick);   // Gắn sự kiện mới
+        });
+    }
+
+    // Hàm xử lý sự kiện click
+    function handlePostClick(event) {
+        const postId = event.currentTarget.getAttribute('data-post-id'); // Lấy ID bài đăng
+        if (postId) {
+            window.location.href = `/posts/${postId}`; // Chuyển hướng đến URL bài đăng
+        } else {
+            console.error('Post ID not found for the clicked element.');
+        }
+    }
+
+    // Gọi hàm gắn sự kiện sau khi DOM đã sẵn sàng
+    document.addEventListener('DOMContentLoaded', () => {
+        attachPostClickEvents();
+    });
 </script>
 <!-- Infinite Scroll -->
 <script src="/javascript/infiniteScroll.js"></script>
