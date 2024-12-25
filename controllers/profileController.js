@@ -62,21 +62,18 @@ profileController.uploadAvatarTemp = (req, res) => {
 
 profileController.updateProfile = async (req, res) => {
     const userID = req.session.user.id;
-    const { name, bio, link, avatarPath } = req.body;
+    const { username, name, bio, link, avatarPath } = req.body;
 
     console.log('Request Body:', req.body);
-
 
     try {
         let finalAvatarPath;
 
         // Kiểm tra nếu không có avatarPath, giữ nguyên avatar hiện tại
         if (!avatarPath) {
-            // Lấy avatar hiện tại từ database
             const user = await models.User.findOne({ where: { UserID: userID } });
-            finalAvatarPath = user.ProfilePicture; // Sử dụng avatar cũ
+            finalAvatarPath = user.ProfilePicture;
         } else {
-            // Nếu avatarPath có giá trị, di chuyển ảnh từ thư mục tạm sang thư mục chính thức
             const tempPath = path.join(__dirname, `../public${avatarPath}`);
             const finalPath = `/avatars/${path.basename(avatarPath)}`;
             const newPath = path.join(__dirname, `../public${finalPath}`);
@@ -89,8 +86,27 @@ profileController.updateProfile = async (req, res) => {
             }
         }
 
+        // Kiểm tra tính duy nhất của username
+        const existingUser = await models.User.findOne({
+            where: {
+                Username: username,
+                UserID: { [models.Sequelize.Op.ne]: userID }, // Loại trừ người dùng hiện tại
+            },
+        });
+
+        if (existingUser) {
+            return res.render('edit-profile', {
+                title: "Wave | Edit Profile",
+                fileCSS: "edit-profile.css",
+                layout: "layout",
+                error: "Username already exists. Please choose a different one.",
+                user: { Username: username, Name: name, Bio: bio, Link: link },
+            });
+        }
+
         // Cập nhật thông tin người dùng
         console.log('Updating user profile with:', {
+            Username: username,
             Name: name,
             Bio: bio,
             Link: link,
@@ -98,11 +114,11 @@ profileController.updateProfile = async (req, res) => {
         });
 
         await models.User.update(
-            { Name: name, Bio: bio, Link: link, ProfilePicture: finalAvatarPath },
+            { Username: username, Name: name, Bio: bio, Link: link, ProfilePicture: finalAvatarPath },
             { where: { UserID: userID } }
         );
 
-        // Cập nhật thông tin trong session
+        // Cập nhật session
         req.session.user.fullName = name;
         req.session.user.profilePicture = finalAvatarPath;
 

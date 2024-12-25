@@ -23,6 +23,11 @@
             <form action="/edit-profile" method="POST" enctype="multipart/form-data" class="p-5 pt-0 pb-0">
                 <input type="hidden" name="avatarPath" id="avatarPathInput">
                 <div>
+                    <p class="m-0 text-profile text-strong-profile">Username</p>
+                    <input type="text" class="form-control text-profile" name="username" value="{{user.Username}}" required />
+                    <hr class="mt-0">
+                </div>
+                <div>
                     <p class="m-0 text-profile text-strong-profile">Name</p>
                     <input type="text" class="form-control text-profile" name="name" value="{{user.Name}}" required />
                     <hr class="mt-0">
@@ -71,19 +76,6 @@
 </script>
 
 <script>
-    document.querySelector('form').addEventListener('submit', (event) => {
-        event.preventDefault(); // Ngăn gửi form tạm thời để kiểm tra
-        const formData = new FormData(event.target);
-
-        console.log('Form Data:');
-        for (const [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-        }
-
-        event.target.submit(); // Gửi form sau khi kiểm tra
-    });
-
-
     document.getElementById('editAvatarBtn').addEventListener('click', () => {
         document.getElementById('avatarInput').click();
     });
