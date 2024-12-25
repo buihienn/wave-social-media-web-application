@@ -160,7 +160,6 @@ authController.authenticate = (req, res, next) => {
 
 // Auther Email
 authController.verifyEmail = async (req, res) => {
-    console.log("123");
     const { token } = req.query;
   
     if (!token) {
@@ -189,6 +188,75 @@ authController.verifyEmail = async (req, res) => {
     } catch (error) {
         res.status(400).send('Invalid or expired token');
     }
-  };
+};
+
+// tao chuoi ki tu
+function generateRandomPassword(length) {
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+    }
+    return password;
+}
+
+// Xử lý yêu cầu reset mật khẩu và gửi mật khẩu mới
+authController.resetPassword = async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.render('forgot-pass', { 
+            title: 'Forgot password', 
+            fileCSS: 'forgot-pass.css', 
+            layout: 'pre-layout',
+            message: "Email is required" 
+        });
+    }
+
+    try {
+        const userByEmail = await models.User.findOne({ where: { Email: email } });
+        
+        if (!userByEmail) {
+            return res.render('forgot-pass', { 
+                title: 'Forgot password', 
+                fileCSS: 'forgot-pass.css', 
+                layout: 'pre-layout',
+                message: "Email not found" 
+            });
+        }
+
+        const newPassword = generateRandomPassword(8);
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        userByEmail.Password = hashedPassword;
+        await userByEmail.save();
+
+        const subject = 'Your New Password';
+        const text = `Your new password is: ${newPassword}\nPlease login with this password and change it immediately for security purposes.`;
+
+        await sendEmail(email, subject, text);
+
+        return res.render('forgot-pass', { 
+            title: 'Forgot password', 
+            fileCSS: 'forgot-pass.css', 
+            layout: 'pre-layout',
+            messageSuccess: "A new password has been sent to your email" 
+        });
+
+    } catch (error) {
+        console.error(error);
+        if (!res.headersSent) { // Đảm bảo không gửi phản hồi nếu đã gửi một lần
+            res.render('forgot-pass', { 
+                title: 'Forgot password', 
+                fileCSS: 'forgot-pass.css', 
+                layout: 'pre-layout',
+                message: "Something went wrong, Please try again!" 
+            });
+        }
+    }
+};
+
+
 
 module.exports = authController;

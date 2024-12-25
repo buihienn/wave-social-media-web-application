@@ -35,6 +35,7 @@ router.post('/register',
 );
 
 router.post("/login", authController.login);
+router.post("/reset-password", authController.resetPassword);
 
 // mail verify
 router.get('/verify-email', authController.verifyEmail);
