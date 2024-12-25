@@ -10,6 +10,8 @@ const flash = require('connect-flash');
 
 app.use(express.static(__dirname + "/public"))
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 
 app.engine(
     "hbs",
@@ -53,7 +55,8 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            maxAge: 20 * 60 * 1000, // 20 min
+            // maxAge: 20 * 60 * 1000, // 20 min
+            maxAge: 20 * 60 * 100000, // 20 min
             httpOnly: true,
             secure: false, // Chỉ bật `true` nếu dùng HTTPS
         },

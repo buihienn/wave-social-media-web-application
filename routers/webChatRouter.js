@@ -8,14 +8,22 @@ const newPostController = require('../controllers/newPostController.js');
 const followListController = require('../controllers/followListController.js');
 const profileController = require('../controllers/profileController.js');
 
+const uploadAvatar = require('../middlewares/uploadAvatar');
+
 const {body} = require("express-validator");
 
 router.get('/', authController.showLogin)
 router.get('/login', authController.showLogin);
 router.get('/register', authController.showRegister);
 router.get('/forgot-pass', authController.showForgotPassword);
+
 router.get('/home', homeController.showPost);
+
 router.get('/profile', profileController.showProfile);
+router.get('/edit-profile', profileController.showEditProfile);
+router.post('/edit-profile', uploadAvatar.none(), profileController.updateProfile);
+router.post('/upload-avatar-temp', uploadAvatar.single('avatar'), profileController.uploadAvatarTemp);
+
 router.get('/post', postController.index);
 router.get('/noti', notiController.noti);
 router.get('/new-post', newPostController.newPost);

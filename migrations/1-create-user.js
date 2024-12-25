@@ -33,6 +33,10 @@ module.exports = {
       ProfilePicture: {
         type: Sequelize.STRING
       },
+      isVerify: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -40,7 +44,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
     });
   },
   async down(queryInterface, Sequelize) {

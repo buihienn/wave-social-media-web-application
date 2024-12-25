@@ -30,6 +30,9 @@ module.exports = {
       PostID: {
         type: Sequelize.INTEGER
       },
+      ActionUserID: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
