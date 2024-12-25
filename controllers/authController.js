@@ -2,6 +2,9 @@ const authController = {};
 const models = require("../models");
 const bcrypt = require("bcryptjs");
 const {validationResult} = require("express-validator");
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const { sendEmail } = require('../config/mailConfig');
 
 // Handler Error
 authController.handlerError = (req, res, next) => {
@@ -82,12 +85,22 @@ authController.register = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        await models.User.create({
+        const newUser = await models.User.create({
             Username: username, 
             Password: hashedPassword, 
-            Email: email
+            Email: email,
+            Name: username,
+            isVerified: false
         });
-        res.render ('thankyou', {title: 'Thank you', layout: 'pre-layout', fileCSS: 'thankyou.css'})
+        res.render ('thankyou', {title: 'Thank you', layout: 'pre-layout', fileCSS: 'thankyou.css'});
+
+        const token = jwt.sign({ userId: newUser.UserID }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+        const verifyUrl = `${process.env.WEB_URL}/verify-email?token=${token}`;
+
+        const subject = 'Email Verification';
+        const text = `Please verify your email by clicking the following link: ${verifyUrl}`;
+
+        await sendEmail(email, subject, text);
     }
     catch (error){
         console.error(error);
@@ -143,5 +156,39 @@ authController.authenticate = (req, res, next) => {
     }
     next();
 };
+
+
+// Auther Email
+authController.verifyEmail = async (req, res) => {
+    console.log("123");
+    const { token } = req.query;
+  
+    if (!token) {
+        return res.status(400).send('Token is required');
+    }
+  
+    try {
+        // Giải mã token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  
+        // Tìm người dùng và cập nhật trạng thái đã xác thực
+        const user = await models.User.findByPk(decoded.userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        if (user.isVerified) {
+            return res.status(200).json({ message: 'Email is already verified' });
+        }
+      
+        user.isVerified = true;
+        await user.save();
+  
+        res.render ('thankyou', {title: 'Thank you', layout: 'pre-layout', fileCSS: 'thankyou.css'})
+  
+    } catch (error) {
+        res.status(400).send('Invalid or expired token');
+    }
+  };
 
 module.exports = authController;
