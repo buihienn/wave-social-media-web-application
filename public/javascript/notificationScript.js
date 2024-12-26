@@ -40,34 +40,6 @@ document.querySelectorAll('.followButton').forEach(button => {
     button.addEventListener('click', followAction);
 });
 
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     document.querySelectorAll('.noti').forEach(noti => {
-//         noti.addEventListener('click', async (event) => {
-//             const notificationId = event.currentTarget.id;
-//             const response = await fetch(`/notifications/${notificationId}/mark-as-read`, {
-//                 method: 'PATCH',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify({ isRead: true }),
-//             });
-
-//             if (response.ok) {
-//                 const notificationElement = event.target.closest('.noti');
-//                 if (notificationElement) {
-//                     notificationElement.classList.remove('unread');
-//                     notificationElement.classList.add('read');
-//                 } else {
-//                     console.error("Không tìm thấy phần tử thông báo.");
-//                 }
-//             } else {
-//                 console.error("Lỗi khi cập nhật trạng thái IsRead trong cơ sở dữ liệu.");
-//             }
-//         });
-//     });
-// });
-
 document.querySelectorAll('.noti').forEach(noti => {
     noti.addEventListener('click', async (event) => {
         const notificationId = event.currentTarget.id;
