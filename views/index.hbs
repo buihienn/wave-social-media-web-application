@@ -39,7 +39,9 @@
                         <small class="text-muted">{{timeAgo}}</small>
                     </div>
                     <div class="container-user-end d-flex align-items-center">
-                        <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                        {{#unless (eq user.UserID ../currentUserID)}}
+                            <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                        {{/unless}}
                         <button class="btn btn-sm">
                             <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
                         </button>
@@ -49,25 +51,26 @@
                 <!-- Post content -->
                 <p class="content-post m-0" data-post-id="{{PostID}}">{{Content}}</p>
         
+
                 <!-- Post image -->
-                <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
-                    <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
-                </div>
+                {{#if PictureURL}}
+                    <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                        <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
+                    </div>
+                {{else}}
+                    <div style="height: 7px;"></div>
+                {{/if}}
                 <!-- Reaction -->
                 <div class="container-reaction d-flex">
                     <!-- Wave -->
-                    <div class="container-reaction-wave d-flex align-items-center me-4">
-                        <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
-                        <small class="text-muted">{{like.length}}</small>
+                    <div class="container-reaction-wave d-flex align-items-center me-4" data-post-id="{{PostID}}" data-liked="{{#if liked}}true{{else}}false{{/if}}">
+                        <img src="{{#if liked}}/icons/surge-active.svg{{else}}/icons/surge.svg{{/if}}" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
+                        <small class="text-muted">{{likes.length}}</small>
                     </div>
                     <!-- Comment -->
                     <div class="container-reaction-comment d-flex align-items-center me-4" data-post-id="{{PostID}}">
                         <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
-                        <small class="text-muted">200</small>
-                    </div>
-                    <!-- Copy link -->
-                    <div class="container-reaction-copy d-flex align-items-center">
-                        <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
+                        <small class="text-muted">{{comments.length}}</small>
                     </div>
                 </div>
             </div>
@@ -82,20 +85,6 @@
 
 <!--JS event-->
 <script>
-    function tabBarActive() {
-        document.querySelectorAll(".tab-bar").forEach(image => {
-        let imageSrc = image.src;
-        let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
-
-        image.onclick = () => {
-            image.src = activeImageSrc;
-        }
-        image.onmouseout = function() {
-            this.src = imageSrc;
-        }
-        })
-    }
-
     function setActiveMode(event) {
         document.querySelectorAll('#wave-nav .nav-link').forEach(link => {
             link.classList.remove('active');
@@ -123,34 +112,14 @@
     document.querySelectorAll('.followButton').forEach(button => {
         button.addEventListener('click', followAction);
     });
-    
-    function likeAction(event) {
-        let button = event.currentTarget; 
-        let image = button.querySelector('img'); 
 
-        if (image.src.includes('/icons/surge.svg')) {
-            image.src = '/icons/surge-active.svg';
-        } else {
-            image.src = '/icons/surge.svg';
-        }
-    }
+</script>
+<!-- Infinite Scroll -->
+<script type="module" src="/javascript/infiniteScroll.js"></script>
+<script type="module">
+    import { likeAction } from '/javascript/like.js';
 
-    document.querySelectorAll('.container-reaction-wave').forEach(button => {
-        button.addEventListener('click', likeAction);
-    });
-
-    document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
-        element.addEventListener('click', () => {
-            const postId = element.getAttribute('data-post-id'); // Lấy ID bài đăng từ data-post-id
-            if (postId) {
-                window.location.href = `/posts/${postId}`; // Chuyển hướng đến URL bài đăng
-            } else {
-                console.error('Post ID not found for the clicked element.');
-            }
-        });
-    });
-
-    // Hàm gắn sự kiện cho bài đăng
+    // Hàm gắn sự kiện click cho bài đăng
     function attachPostClickEvents() {
         document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
             element.removeEventListener('click', handlePostClick); // Xóa sự kiện cũ (nếu có)
@@ -158,7 +127,7 @@
         });
     }
 
-    // Hàm xử lý sự kiện click
+    // Hàm xử lý sự kiện click bài đăng
     function handlePostClick(event) {
         const postId = event.currentTarget.getAttribute('data-post-id'); // Lấy ID bài đăng
         if (postId) {
@@ -168,10 +137,17 @@
         }
     }
 
-    // Gọi hàm gắn sự kiện sau khi DOM đã sẵn sàng
+    // Gắn sự kiện "Like" cho các nút "Wave"
+    function attachLikeEvents() {
+        document.querySelectorAll('.container-reaction-wave').forEach(button => {
+            button.removeEventListener('click', likeAction); // Xóa sự kiện cũ (nếu có)
+            button.addEventListener('click', likeAction);   // Gắn sự kiện mới
+        });
+    }
+
+    // Gọi các hàm sau khi DOM đã sẵn sàng
     document.addEventListener('DOMContentLoaded', () => {
         attachPostClickEvents();
+        attachLikeEvents();
     });
 </script>
-<!-- Infinite Scroll -->
-<script src="/javascript/infiniteScroll.js"></script>

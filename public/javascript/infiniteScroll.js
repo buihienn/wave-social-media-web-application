@@ -1,3 +1,5 @@
+import { likeAction } from '/javascript/like.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     let offset = 10; // Số bài đăng đã tải
     const limit = 10; // Số bài đăng mỗi lần tải
@@ -52,24 +54,28 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <small class="text-muted">${post.timeAgo}</small>
                                 </div>
                                 <div class="container-user-end d-flex align-items-center">
-                                    <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                                    ${post.user.UserID !== data.currentUserID ? `
+                                        <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                                        ` : ''}
                                     <button class="btn btn-sm">
                                         <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
                                     </button>
                                 </div>
                             </div>
                             <p class="content-post m-0" data-post-id="${post.PostID}">${post.Content}</p>
+                            ${post.PictureURL ? `
                             <div class="container-post-main-image my-2 led-fx flex-row overflow-auto">
                                 <img src="${post.PictureURL}" alt="${post.PostID}" class="img-fluid me-2">
                             </div>
+                            ` : ''}
                             <div class="container-reaction d-flex">
-                                <div class="container-reaction-wave d-flex align-items-center me-4">
-                                    <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
-                                    <small class="text-muted">14K</small>
+                                <div class="container-reaction-wave d-flex align-items-center me-4" data-post-id="${post.PostID}" data-liked="${post.liked}">
+                                    <img src="${post.liked ? '/icons/surge-active.svg' : '/icons/surge.svg'}" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
+                                    <small class="text-muted">${post.likes.length}</small>
                                 </div>
                                 <div class="container-reaction-comment d-flex align-items-center me-4" data-post-id="${post.PostID}">
                                     <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
-                                    <small class="text-muted">200</small>
+                                    <small class="text-muted">${post.comments.length}</small>
                                 </div>
                                 <div class="container-reaction-copy d-flex align-items-center">
                                     <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
@@ -80,7 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     postContainer.appendChild(postElement);
                 });
 
+                // Gắn lại sự kiện sau khi thêm bài đăng mới
                 attachPostClickEvents();
+                attachLikeEvents();
 
                 offset += limit; // Cập nhật offset
             } catch (error) {
@@ -92,3 +100,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Hàm gắn sự kiện click cho bài đăng
+function attachPostClickEvents() {
+    document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
+        element.removeEventListener('click', handlePostClick); // Xóa sự kiện cũ (nếu có)
+        element.addEventListener('click', handlePostClick);   // Gắn sự kiện mới
+    });
+}
+
+// Hàm xử lý sự kiện click bài đăng
+function handlePostClick(event) {
+    const postId = event.currentTarget.getAttribute('data-post-id'); // Lấy ID bài đăng
+    if (postId) {
+        window.location.href = `/posts/${postId}`; // Chuyển hướng đến URL bài đăng
+    } else {
+        console.error('Post ID not found for the clicked element.');
+    }
+}
+
+// Gắn sự kiện "Like" cho các nút "Wave"
+function attachLikeEvents() {
+    document.querySelectorAll('.container-reaction-wave').forEach(button => {
+        button.removeEventListener('click', likeAction); // Xóa sự kiện cũ (nếu có)
+        button.addEventListener('click', likeAction);   // Gắn sự kiện mới
+    });
+}

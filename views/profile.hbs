@@ -1,6 +1,6 @@
 <main> 
     <div class="container-fluid ps-0 pe-0 d-flex flex-column align-items-center" style="margin-bottom: 65px;">
-        <div class="row p-3 flex-shrink-0">
+        <div class="bg-white row p-4 fixed-top flex-shrink-0 mx-auto">
             <div class="position-relative p-0">
                 <p class="m-0" id="Olivia-text">{{user.Name}}</p>
                 <p class="m-0">{{user.Username}}</p>
@@ -10,12 +10,11 @@
             <div class="p-0 pb-2" id="special-information">
                 <a href="/follow-list" class="follow-link">412K followers</a> . {{user.Link}}
             </div>
-            <div class="two-button p-0 d-flex justify-content-between">
+            <div class="two-button p-0 d-flex justify-content-end">
                 <div><a href="/edit-profile"><button class="waveBtn" id="button-profile">Edit profile</button></a></div>
-                <div><button class="waveBtn" id="button-profile">Share profile</button></div>
             </div>
         </div>
-        <div class="row container-fluid p-0 flex-grow-1 overflow-auto">
+        <div class="row container-fluid p-0 flex-grow-1 overflow-auto" style="margin-top: 200px;">
             {{#each posts}}
             <div class="post d-flex py-2 ps-0 pe-0 border-bottom">
                 <div class="container-avatar px-2">
@@ -40,20 +39,25 @@
                     </div>
                     <!-- Post content -->
                     <p class="content-post m-0" data-post-id="{{PostID}}">{{Content}}</p>
-                    <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
-                        <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
-                    </div>
+                    <!-- Post image -->
+                    {{#if PictureURL}}
+                        <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                            <img src="{{PictureURL}}" alt="{{PostID}}" class="img-fluid me-2">
+                        </div>
+                    {{else}}
+                        <div style="height: 7px;"></div>
+                    {{/if}}
+                    <!-- Reaction -->
                     <div class="container-reaction d-flex">
-                        <div class="container-reaction-wave d-flex align-items-center me-4">
-                            <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
-                            <small class="text-muted">14K</small>
+                        <!-- Wave -->
+                        <div class="container-reaction-wave d-flex align-items-center me-4" data-post-id="{{PostID}}" data-liked="{{#if liked}}true{{else}}false{{/if}}">
+                            <img src="{{#if liked}}/icons/surge-active.svg{{else}}/icons/surge.svg{{/if}}" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
+                            <small class="text-muted">{{likes.length}}</small>
                         </div>
-                        <div class="container-reaction-comment d-flex align-items-center me-4" ddata-post-id="{{PostID}}">
+                        <!-- Comment -->
+                        <div class="container-reaction-comment d-flex align-items-center me-4" data-post-id="{{PostID}}">
                             <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
-                            <small class="text-muted">200</small>
-                        </div>
-                        <div class="container-reaction-copy d-flex align-items-center">
-                            <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
+                            <small class="text-muted">{{comments.length}}</small>
                         </div>
                     </div>
                 </div>
@@ -66,36 +70,43 @@
 <!-- Footer -->
 {{> footer}}
 
-<script>
+<script type="module">
     function resizeTextarea(textarea) {
         textarea.style.height = 'auto';
         textarea.style.height = (textarea.scrollHeight) + 'px'; 
     }
 
-    function likeAction(event) {
-        let button = event.currentTarget; 
-        let image = button.querySelector('img'); 
+    import { likeAction } from '/javascript/like.js';
 
-        if (image.src.includes('/icons/surge.svg')) {
-            image.src = '/icons/surge-active.svg';
+    // Hàm gắn sự kiện click cho bài đăng
+    function attachPostClickEvents() {
+        document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
+            element.removeEventListener('click', handlePostClick); // Xóa sự kiện cũ (nếu có)
+            element.addEventListener('click', handlePostClick);   // Gắn sự kiện mới
+        });
+    }
+
+    // Hàm xử lý sự kiện click bài đăng
+    function handlePostClick(event) {
+        const postId = event.currentTarget.getAttribute('data-post-id'); // Lấy ID bài đăng
+        if (postId) {
+            window.location.href = `/posts/${postId}`; // Chuyển hướng đến URL bài đăng
         } else {
-            image.src = '/icons/surge.svg';
+            console.error('Post ID not found for the clicked element.');
         }
     }
 
-    document.querySelectorAll('.container-reaction-wave').forEach(button => {
-        button.addEventListener('click', likeAction);
-    });
-
-    document.querySelectorAll('.content-post, .container-reaction-comment').forEach(element => {
-        element.addEventListener('click', () => {
-            const postId = element.getAttribute('data-post-id'); // Lấy ID bài đăng từ data-post-id
-            if (postId) {
-                window.location.href = `/posts/${postId}`; // Chuyển hướng đến URL bài đăng
-            } else {
-                console.error('Post ID not found for the clicked element.');
-            }
+    // Gắn sự kiện "Like" cho các nút "Wave"
+    function attachLikeEvents() {
+        document.querySelectorAll('.container-reaction-wave').forEach(button => {
+            button.removeEventListener('click', likeAction); // Xóa sự kiện cũ (nếu có)
+            button.addEventListener('click', likeAction);   // Gắn sự kiện mới
         });
-    });
+    }
 
+    // Gọi các hàm sau khi DOM đã sẵn sàng
+    document.addEventListener('DOMContentLoaded', () => {
+        attachPostClickEvents();
+        attachLikeEvents();
+    });
 </script>

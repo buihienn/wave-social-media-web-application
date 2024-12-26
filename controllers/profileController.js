@@ -21,6 +21,19 @@ profileController.showProfile = async (req, res) => {
     const currentUserPosts = await models.Post.findAll({
         where: { UserID: userID }, 
         order: [['createdAt', 'DESC']], 
+        include: [
+            { model: models.User, as: 'user', attributes: ['Username', 'ProfilePicture'] },
+            {
+            model: models.Like,
+            as: 'likes',
+            attributes: ['LikeID', 'UserID'],
+            },
+            {
+            model: models.Comment,
+            as: 'comments',
+            attributes: ['CommentID'], 
+            },
+        ],
     });
 
     const formattedPosts = currentUserPosts.map(post => {
@@ -30,6 +43,7 @@ profileController.showProfile = async (req, res) => {
             Username: currentUser.Username,
             ProfilePicture: currentUser.ProfilePicture,
         };
+        plainPost.liked = post.likes.some(like => like.UserID === userID); // Kiểm tra xem user đã like post này chưa
         return plainPost;
     });
     
