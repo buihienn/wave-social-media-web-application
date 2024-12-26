@@ -56,7 +56,7 @@ app.use(
         saveUninitialized: false,
         cookie: {
             // maxAge: 20 * 60 * 1000, // 20 min
-            maxAge: 20 * 60 * 100000, // 20 min
+            maxAge: 20 * 60 * 2000, // 20 min
             httpOnly: true,
             secure: false, // Chỉ bật `true` nếu dùng HTTPS
         },

@@ -24,205 +24,39 @@
 <!-- Main -->
 <main>
     <div class="container-list" style="margin-bottom: 65px;">
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="follow">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/follow-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Followed you</p>
-                    </div>
+        {{#each notifications}}
+            <div class="noti ps-3 py-2 d-flex flex-row align-items-center {{#if this.IsRead}}read{{else}}unread{{/if}}" id="{{this.NotificationID}}">
+                <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
+                    <img src="/{{this.actionUser.ProfilePicture}}" alt="avatar" class="img-fluid avatar"/>
+                    <img src="/icons/{{this.Type}}-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
                 </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                    <button class="follow followButton">Follow back</button>
-                </div>  
-            </div>
-        </div>
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="reply">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/reply-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Replied you</p>
+                <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
+                    <div class="noti-info">
+                        <div class="username">
+                            <strong class="mb-2">{{this.actionUser.Username}}</strong>
+                            <p class="m-0" style="color: #3c3c43b1;">
+                                {{#if (eq this.Type "follow")}}
+                                    Followed you
+                                {{else if (eq this.Type "like")}}
+                                    Surged your wave
+                                {{else if (eq this.Type "comment")}}
+                                    Replied you
+                                {{else}}
+                                    {{this.Type}} you
+                                {{/if}}
+                            </p>
+                        </div>
+                        {{!-- <p class="text-muted small">{{this.createdAt}}</p> --}}
                     </div>
+                    <div class="container-button me-3 d-flex align-items-center">
+                        {{#if (eq this.Type "follow")}}
+                            <button class="follow followButton">Follow back</button>
+                        {{/if}}
+                    </div>  
                 </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                </div>  
             </div>
-        </div>
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="like">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/like-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Surged your wave</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                </div>  
-            </div>
-        </div>
+        {{/each}}
 
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="follow">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/follow-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Followed you</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                    <button class="follow followButton">Follow back</button>
-                </div>  
-            </div>
-        </div>
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="reply">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/reply-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Replied you</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                </div>  
-            </div>
-        </div>
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="like">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/like-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Surged your wave</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                </div>  
-            </div>
-        </div>
-
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="follow">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/follow-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Followed you</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                    <button class="follow followButton">Follow back</button>
-                </div>  
-            </div>
-        </div>
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="reply">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/reply-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Replied you</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                </div>  
-            </div>
-        </div>
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="like">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/like-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Surged your wave</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                </div>  
-            </div>
-        </div>
-
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="follow">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/follow-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Followed you</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                    <button class="follow followButton">Follow back</button>
-                </div>  
-            </div>
-        </div>
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="reply">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/reply-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Replied you</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                </div>  
-            </div>
-        </div>
-        <div class="noti ps-3 py-2 d-flex flex-row align-items-center" id="like">
-            <div class="container-avatar mt-1 me-2 d-flex align-self-start align-items-center position-relative">
-                <img src="/images/avatar.jpg" alt="avatar" class="img-fluid avatar"/>
-                <img src="/icons/like-mark.svg" alt="noti" class="noti-mark position-absolute bottom-0 end-0" id="follow-mark"/>
-            </div>
-            <div class="container-fluid p-0 pb-2 d-flex justify-content-between" style="border-bottom: 0.25px solid #DFDFDF;">
-                <div class="noti-info">
-                    <div class="username">
-                        <strong class="mb-2">User1</strong>
-                        <p class="m-0" style="color: #3c3c43b1;">Surged your wave</p>
-                    </div>
-                </div>
-                <div class="container-button me-3 d-flex align-items-center">
-                </div>  
-            </div>
-        </div>
     </div>
 </main>
 <!-- Footer -->
@@ -272,6 +106,37 @@
 
     document.querySelectorAll('.followButton').forEach(button => {
         button.addEventListener('click', followAction);
+    });
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.noti').forEach(noti => {
+            noti.addEventListener('click', async (event) => {
+                const notificationId = event.currentTarget.id;
+                console.log("Notification ID:", notificationId);
+
+                const response = await fetch(`/notifications/${notificationId}/mark-as-read`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ isRead: true }),
+                });
+
+                if (response.ok) {
+                    const notificationElement = event.target.closest('.noti');
+                    if (notificationElement) {
+                        notificationElement.classList.remove('unread');
+                        notificationElement.classList.add('read');
+                    } else {
+                        console.error("Không tìm thấy phần tử thông báo.");
+                    }
+                } else {
+                    console.error("Lỗi khi cập nhật trạng thái IsRead trong cơ sở dữ liệu.");
+                }
+            });
+        });
     });
 
 </script>
