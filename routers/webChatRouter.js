@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const requireLogin = require('./requireLogin.js');
 
 const authController = require('../controllers/authController.js');
 const homeController = require('../controllers/homeController.js');
@@ -18,29 +19,22 @@ router.get('/login', authController.showLogin);
 router.get('/register', authController.showRegister);
 router.get('/forgot-pass', authController.showForgotPassword);
 
-router.get('/home', homeController.showPost);
+router.get('/home', requireLogin,homeController.showPost);
 
-router.get('/profile', profileController.showProfile);
+router.get('/profile', requireLogin,profileController.showProfile);
 router.get('/edit-profile', profileController.showEditProfile);
 router.post('/edit-profile', uploadAvatar.single('avatar'), profileController.updateProfile);
 
-router.get('/new-post', newPostController.newPost);
+router.get('/new-post', requireLogin,newPostController.newPost);
 router.post('/new-post', uploadPost.single('picture'), newPostController.createPost);
 
 router.get('/posts/:postId', postController.getPostDetails);
-
-router.post('/posts/:postId/like', postController.likePost);
-router.delete('/posts/:postId/like', postController.unlikePost);
-router.post('/post/:postID/comment', postController.addComment);
-
-router.get('/noti', notiController.noti);
-router.get('/noti', notiController.notiFetch);
-
-router.get('/follow-list', followListController.followList);
+router.get('/noti', requireLogin,notiController.notiFetch);
+router.get('/follow-list', requireLogin,followListController.followList);
 router.get('/success-change-page', authController.showSuccessChangePage);
 router.get('/thankyou', authController.showThankyou);
 
-router.get("/logout", authController.logout);
+router.get("/logout", requireLogin,authController.logout);
 
 // POST
 router.post('/register', 
@@ -61,6 +55,6 @@ router.get('/verify-email', authController.verifyEmail);
 
 // notifi
 router.patch("/notifications/:id/mark-as-read", notiController.markAsRead);
-router.delete("/notifications/:id/delete",notiController.deleteNotification);
+router.delete("/notifications/:id/delete", notiController.deleteNotification);
 
 module.exports = router;
