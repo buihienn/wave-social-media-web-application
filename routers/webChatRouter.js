@@ -36,7 +36,9 @@ router.post('/post/:postID/comment', postController.addComment);
 router.get('/noti', notiController.noti);
 router.get('/noti', notiController.notiFetch);
 
-router.get('/follow-list', followListController.followList);
+router.get('/followers', followListController.getFollowers);
+router.get('/following', followListController.getFollowing);
+
 router.get('/success-change-page', authController.showSuccessChangePage);
 router.get('/thankyou', authController.showThankyou);
 
