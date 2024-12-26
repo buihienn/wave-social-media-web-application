@@ -40,7 +40,9 @@
                     </div>
                     <div class="container-user-end d-flex align-items-center">
                         {{#unless (eq user.UserID ../currentUserID)}}
-                            <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                            <button class="followButton {{#if isFollowing}}following{{else}}follow{{/if}} me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">
+                                {{#if isFollowing}}Following{{else}}Follow{{/if}}
+                            </button>
                         {{/unless}}
                         <button class="btn btn-sm">
                             <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">

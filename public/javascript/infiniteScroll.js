@@ -55,8 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                                 <div class="container-user-end d-flex align-items-center">
                                     ${post.user.UserID !== data.currentUserID ? `
-                                        <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
-                                        ` : ''}
+                                    <button class="followButton ${post.isFollowing ? 'following' : 'follow'} me-2 mt-1" data-user-id="${post.user.UserID}" style="--bs-btn-padding-y: 0.3rem;">
+                                        ${post.isFollowing ? 'Following' : 'Follow'}
+                                    </button>
+                                    ` : ''}
                                     <button class="btn btn-sm">
                                         <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
                                     </button>
@@ -76,9 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="container-reaction-comment d-flex align-items-center me-4" data-post-id="${post.PostID}">
                                     <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
                                     <small class="text-muted">${post.comments.length}</small>
-                                </div>
-                                <div class="container-reaction-copy d-flex align-items-center">
-                                    <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
                                 </div>
                             </div>
                         </div>

@@ -34,12 +34,23 @@ homeController.showPost = async (req, res) => {
     ],
   });
    
-  const formattedPosts = posts.map(post => {
+  const formattedPosts = await Promise.all(posts.map(async post => {
       const plainPost = post.get({ plain: true });
       plainPost.timeAgo = formatTimeAgo(plainPost.createdAt);
       plainPost.liked = post.likes.some(like => like.UserID === userID); // Kiểm tra xem user đã like post này chưa
+
+      // Kiểm tra xem người dùng hiện tại có theo dõi user của post hay không
+      const isFollowing = await models.Follower.findOne({
+        where: {
+          FollowerID: userID,
+          FolloweeID: plainPost.user.UserID,
+          Status: 'accepted'
+        }
+      });
+
+      plainPost.isFollowing = !!isFollowing; // Chuyển đổi kết quả thành boolean
       return plainPost;
-  });
+  }));
 
   // Trả về JSON nếu là yêu cầu AJAX
   if (req.xhr || req.headers.accept.indexOf('json') > -1) {
