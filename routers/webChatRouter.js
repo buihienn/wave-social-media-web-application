@@ -28,7 +28,7 @@ router.get('/new-post', newPostController.newPost);
 router.post('/new-post', uploadPost.single('picture'), newPostController.createPost);
 
 router.get('/posts/:postId', postController.getPostDetails);
-router.get('/noti', notiController.noti);
+router.get('/noti', notiController.notiFetch);
 router.get('/follow-list', followListController.followList);
 router.get('/success-change-page', authController.showSuccessChangePage);
 router.get('/thankyou', authController.showThankyou);
@@ -51,5 +51,8 @@ router.post("/reset-password", authController.resetPassword);
 router.get('/verify-email', authController.verifyEmail);
 
 
+
+// notifi
+router.patch("/notifications/:id/mark-as-read", notiController.markAsRead);
 
 module.exports = router;

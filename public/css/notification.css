@@ -62,3 +62,11 @@ main {
     align-items: center;
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25) inset;
 }
+
+.read {
+    background-color: #f0f0f0;  /* Màu nền cho thông báo đã đọc */
+}
+  
+.unread {
+background-color: #cce5ff;  /* Màu nền cho thông báo chưa đọc */
+}
