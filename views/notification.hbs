@@ -49,9 +49,10 @@
                         {{!-- <p class="text-muted small">{{this.createdAt}}</p> --}}
                     </div>
                     <div class="container-button me-3 d-flex align-items-center">
-                        {{#if (eq this.Type "follow")}}
+                        {{!-- {{#if (eq this.Type "follow")}}
                             <button class="follow followButton">Follow back</button>
-                        {{/if}}
+                        {{/if}} --}}
+                        <button class = "Delete_noti waveBtn px-3 " id="{{this.NotificationID}}" >delete</button>
                     </div>  
                 </div>
             </div>
@@ -65,78 +66,4 @@
 <!-- Bootstrap JavaScript Libraries -->
 
 <!--JS event-->
-<script>
-    function tabBarActive() {
-        document.querySelectorAll(".tab-bar").forEach(image => {
-        let imageSrc = image.src;
-        let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
-
-        image.onclick = () => {
-            image.src = activeImageSrc;
-        }
-        image.onmouseout = function() {
-            this.src = imageSrc;
-        }
-    })
-    }
-
-    function setActiveMode(event) {
-        document.querySelectorAll('#wave-nav .nav-link').forEach(link => {
-            link.classList.remove('active');
-        });
-
-        event.currentTarget.classList.add('active');
-    }
-
-    function followAction(event) {
-        let followBtn = event.currentTarget;
-
-        if (followBtn.textContent.trim() === 'Follow back') {
-            followBtn.textContent = 'Following';
-            followBtn.classList.add('following');
-            followBtn.classList.remove('follow');
-        } else if (followBtn.textContent.trim() === 'Following') {
-            followBtn.textContent = 'Follow back';
-            followBtn.classList.add('follow');
-            followBtn.classList.remove('following');
-        }
-
-        // Xử lý follow/unfollow
-    }
-
-    document.querySelectorAll('.followButton').forEach(button => {
-        button.addEventListener('click', followAction);
-    });
-
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.noti').forEach(noti => {
-            noti.addEventListener('click', async (event) => {
-                const notificationId = event.currentTarget.id;
-                console.log("Notification ID:", notificationId);
-
-                const response = await fetch(`/notifications/${notificationId}/mark-as-read`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ isRead: true }),
-                });
-
-                if (response.ok) {
-                    const notificationElement = event.target.closest('.noti');
-                    if (notificationElement) {
-                        notificationElement.classList.remove('unread');
-                        notificationElement.classList.add('read');
-                    } else {
-                        console.error("Không tìm thấy phần tử thông báo.");
-                    }
-                } else {
-                    console.error("Lỗi khi cập nhật trạng thái IsRead trong cơ sở dữ liệu.");
-                }
-            });
-        });
-    });
-
-</script>
+<script src = "/javascript/notificationScript.js"> </script>

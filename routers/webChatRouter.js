@@ -61,5 +61,6 @@ router.get('/verify-email', authController.verifyEmail);
 
 // notifi
 router.patch("/notifications/:id/mark-as-read", notiController.markAsRead);
+router.delete("/notifications/:id/delete",notiController.deleteNotification);
 
 module.exports = router;
