@@ -7,15 +7,35 @@ postController.getPostDetails = async (req, res) => {
     res.locals.fileCSS = "post.css";
     res.locals.layout = "layout";
 
+    // Lấy UserID từ session
+    const userID = req.session.user.id;
+
     try {
         const post = await models.Post.findOne({
             where: { PostID: postId },
             include: [
-                { model: models.User, as: 'user' }, 
-                { model: models.Comment, as: 'comments', include: { model: models.User, as: 'user' } }, 
-                { model: models.Like, as: 'likes' },
+                {
+                    model: models.User,
+                    as: 'user',
+                    attributes: ['Username', 'ProfilePicture'], // Lấy các trường cần thiết
+                },
+                {
+                    model: models.Comment,
+                    as: 'comments',
+                    include: {
+                        model: models.User,
+                        as: 'user',
+                        attributes: ['Username', 'ProfilePicture'], // Lấy thông tin người bình luận
+                    },
+                },
+                {
+                    model: models.Like,
+                    as: 'likes',
+                    attributes: ['UserID'], // Chỉ cần UserID để kiểm tra "like"
+                },
             ],
         });
+        
 
         if (!post) {
             return res.status(404).render('404', { message: 'Post not found' });
@@ -23,16 +43,13 @@ postController.getPostDetails = async (req, res) => {
 
         // Chuẩn bị dữ liệu cho view
         const postData = {
+            postID: post.PostID,
             content: post.Content,
             timeAgo: formatTimeAgo(post.createdAt),
-            image: post.PictureURL.startsWith('/')
-                ? post.PictureURL
-                : `/${post.PictureURL}`, // Thêm "/" nếu chưa có
+            image: post.PictureURL ? (post.PictureURL.startsWith('/') ? post.PictureURL : `/${post.PictureURL}`) : null,
             user: {
                 username: post.user.Username,
-                avatar: post.user.ProfilePicture.startsWith('/')
-                    ? post.user.ProfilePicture
-                    : `/${post.user.ProfilePicture}`,
+                avatar: post.user.ProfilePicture.startsWith('/') ? post.user.ProfilePicture : `/${post.user.ProfilePicture}`,
             },
             comments: post.comments.map(comment => ({
                 content: comment.Content,
@@ -44,7 +61,8 @@ postController.getPostDetails = async (req, res) => {
                         : `/${comment.user.ProfilePicture}`,
                 },
             })),
-            likesCount: post.likes.length,
+            likesCount: post.likes.length, 
+            liked: post.likes.some(like => like.UserID === userID), 
         };
 
         // Render view với dữ liệu
@@ -55,6 +73,81 @@ postController.getPostDetails = async (req, res) => {
     } catch (error) {
         console.error('Error fetching post details:', error);
         res.status(500).render('500', { message: 'Server error' });
+    }
+};
+
+postController.likePost = async (req, res) => {
+    const { postId } = req.params;
+    const userId = req.session.user.id;
+
+    try {
+        // Kiểm tra xem người dùng đã thích bài đăng chưa
+        const existingLike = await models.Like.findOne({ where: { PostID: postId, UserID: userId } });
+
+        if (existingLike) {
+            return res.status(400).json({ message: 'Already liked' });
+        }
+
+        // Thêm lượt thích
+        await models.Like.create({ PostID: postId, UserID: userId });
+
+        // Đếm lại số lượt thích
+        const likesCount = await models.Like.count({ where: { PostID: postId } });
+
+        res.json({ likesCount });
+    } catch (error) {
+        console.error('Error liking post:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+postController.unlikePost = async (req, res) => {
+    const { postId } = req.params;
+    const userId = req.session.user.id;
+
+    try {
+        // Xóa lượt thích
+        await models.Like.destroy({ where: { PostID: postId, UserID: userId } });
+
+        // Đếm lại số lượt thích
+        const likesCount = await models.Like.count({ where: { PostID: postId } });
+
+        res.json({ likesCount });
+    } catch (error) {
+        console.error('Error unliking post:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+postController.addComment = async (req, res) => {
+    const postID = req.params.postID;
+    const { comment } = req.body;
+    const userID = req.session.user.id;
+
+    try {
+        // Thêm comment vào cơ sở dữ liệu
+        const newComment = await models.Comment.create({
+            Content: comment,
+            UserID: userID,
+            PostID: postID,
+        });
+
+        // Lấy thông tin user hiện tại
+        const user = await models.User.findByPk(userID, {
+            attributes: ['Username', 'ProfilePicture']
+        });
+
+        res.json({ 
+            success: true, 
+            comment: newComment,
+            user: {
+                username: user.Username,
+                avatar: user.ProfilePicture.startsWith('/') ? user.ProfilePicture : `/${user.ProfilePicture}`
+            }
+            });
+    } catch (error) {
+        console.error('Error adding comment:', error);
+        res.status(500).json({ success: false, message: 'Error adding comment' });
     }
 };
 

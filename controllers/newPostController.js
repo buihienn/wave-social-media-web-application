@@ -23,13 +23,17 @@ newPostController.createPost = async (req, res) => {
         const userID = req.session.user.id;
         const picturePath = req.file ? `/images/${req.file.filename}` : null;
 
-        await models.Post.create({
+        const newPost = await models.Post.create({
             UserID: userID,
             Content: content,
             PictureURL: picturePath,
         });
 
-        res.redirect('/home');
+        if (!newPost.PostID) {
+            return res.status(404).render('404', { message: 'Post not found' });
+        }
+
+        res.redirect(`/posts/${newPost.PostID}`);
     } catch (error) {
         console.error('Error creating post:', error);
         res.render('new-post', {

@@ -39,29 +39,30 @@
                 <p class="m-0">{{post.content}}</p>
         
                 <!-- Post image -->
-                <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
-                    <img src="{{post.image}}" alt="Post Image" class="img-fluid me-2">
-                </div>
+                {{#if post.image}}
+                    <div class="container-post-main-image my-2 d-flex flex-row overflow-auto">
+                        <img src="{{post.image}}" alt="Post Image" class="img-fluid me-2">
+                    </div>
+                {{else}}
+                    <div style="height: 7px;"></div>
+                {{/if}}
+
                 <!-- Reaction -->
                 <div class="container-reaction d-flex">
                     <!-- Wave -->
-                    <div class="container-reaction-wave d-flex align-items-center me-4">
-                        <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
+                    <div class="container-reaction-wave d-flex align-items-center me-4" data-post-id="{{post.postID}}" data-liked="{{#if post.liked}}true{{else}}false{{/if}}">
+                        <img src="{{#if post.liked}}/icons/surge-active.svg{{else}}/icons/surge.svg{{/if}}" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
                         <small class="text-muted">{{post.likesCount}}</small>
                     </div>
                     <!-- Comment -->
                     <div class="container-reaction-comment d-flex align-items-center me-4">
                         <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
-                        <small class="text-muted">{{post.comments.length}}</small>
-                    </div>
-                    <!-- Copy link -->
-                    <div class="container-reaction-copy d-flex align-items-center">
-                        <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
+                        <small class="text-muted comments-count">{{post.comments.length}}</small>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container-comment">
+        <div class="container-comment" style="margin-bottom: 99px;">
             <div class="header-comment ms-2 mt-2 pb-2">
                 <strong>Comments</strong>
             </div>
@@ -95,17 +96,15 @@
             
                     <!-- Post content -->
                     <p class="m-0">{{content}}</p>
-                    <!-- Reaction -->
-                    <div class="container-reaction d-flex mt-2">
-                        <!-- Wave -->
-                        <div class="container-reaction-wave d-flex align-items-center me-4">
-                            <img src="/icons/surge.svg" alt="Wave Icon" style="width: 20px; height: 20px;" class="me-1">
-                            <small class="text-muted">14K</small>
-                        </div>
-                    </div>
                 </div>
             </div>
             {{/each}}
+        </div>
+        <div class="px-3 fixed-bottom" style="margin-bottom: 57px;">
+            <form id="commentForm" action="/post/{{post.postID}}/comment" method="POST" class="d-flex">
+                <input type="text" name="comment" class="form-control" placeholder="Write a comment..." required>
+                <button type="submit" class="waveBtn py-2 px-3" style="box-shadow: none;">Comment</button>
+            </form>
         </div>
     </div>
 </main>
@@ -117,21 +116,7 @@
 
 
 <!--JS event-->
-<script>
-    function tabBarActive() {
-        document.querySelectorAll(".tab-bar").forEach(image => {
-        let imageSrc = image.src;
-        let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
-
-        image.onclick = () => {
-            image.src = activeImageSrc;
-        }
-        image.onmouseout = function() {
-            this.src = imageSrc;
-        }
-        })
-    }
-
+<script type="module">
     function setActiveMode(event) {
         document.querySelectorAll('#wave-nav .nav-link').forEach(link => {
             link.classList.remove('active');
@@ -159,23 +144,87 @@
     document.querySelectorAll('.followButton').forEach(button => {
         button.addEventListener('click', followAction);
     });
-    
-    function likeAction(event) {
-        let button = event.currentTarget; // Lấy nút được nhấn
-        let image = button.querySelector('img'); // Tìm thẻ img trong button
 
-        // Kiểm tra src hiện tại của thẻ img và đổi trạng thái
-        if (image.src.includes('/icons/surge.svg')) {
-            image.src = '/icons/surge-active.svg';
-        } else {
-            image.src = '/icons/surge.svg';
-        }
+    import { likeAction } from '/javascript/like.js';
+
+    // Gắn sự kiện "Like" cho các nút "Wave"
+    function attachLikeEvents() {
+        document.querySelectorAll('.container-reaction-wave').forEach(button => {
+            button.removeEventListener('click', likeAction); // Xóa sự kiện cũ (nếu có)
+            button.addEventListener('click', likeAction);   // Gắn sự kiện mới
+        });
     }
 
-    // Gán sự kiện click cho tất cả các nút like
-    document.querySelectorAll('.container-reaction-wave').forEach(button => {
-        button.addEventListener('click', likeAction);
+    // Gọi các hàm sau khi DOM đã sẵn sàng
+    document.addEventListener('DOMContentLoaded', () => {
+        attachLikeEvents();
     });
 
+    // Gán sự kiện cho Comment
+    document.getElementById('commentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const comment = event.target.comment.value;
+        const postID = event.target.action.split('/').slice(-2, -1)[0];
 
+        fetch(`/post/${postID}/comment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ comment })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Tạo phần tử HTML cho comment mới
+                const newComment = document.createElement('div');
+                newComment.classList.add('post', 'd-flex', 'py-2');
+                newComment.innerHTML = `
+                    <div class="container-avatar px-2">
+                        <div class="avatar-container">
+                            <img src="${data.user.avatar}" alt="User Avatar" class="img-fluid avatar">
+                        </div>
+                    </div>
+                    <div class="container-post-main container-fluid p-0 d-flex flex-column">
+                        <div class="container-user d-flex justify-content-between align-items-start mb-2">
+                            <div class="container-user-first d-flex flex-column align-items-start">
+                                <div class="username d-flex">
+                                    <strong class="me-2">${data.user.username}</strong>
+                                    <img src="/icons/verified.svg" alt="Verified" class="d-flex align-self-center" style="width: 1rem; height: 1rem;">
+                                </div>
+                                <small class="text-muted">now</small>
+                            </div>
+                            <div class="container-user-end d-flex align-items-center">
+                                <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                                <button class="btn btn-sm">
+                                    <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                        </div>
+                        <p class="m-0">${data.comment.Content}</p>
+                    </div>
+                `;
+
+                // Thêm comment mới vào danh sách comment
+                document.querySelector('.container-comment').appendChild(newComment);
+
+                // Cập nhật số lượng comment
+                const commentsCountElement = document.querySelector('.comments-count');
+                if (commentsCountElement) {
+                    const currentCount = parseInt(commentsCountElement.textContent, 10);
+                    commentsCountElement.textContent = currentCount + 1;
+                }
+
+                // Xóa nội dung input
+                event.target.comment.value = '';
+            } else {
+                // Handle error
+                console.error('Error adding comment:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
 </script>

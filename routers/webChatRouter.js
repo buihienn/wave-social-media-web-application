@@ -28,7 +28,14 @@ router.get('/new-post', newPostController.newPost);
 router.post('/new-post', uploadPost.single('picture'), newPostController.createPost);
 
 router.get('/posts/:postId', postController.getPostDetails);
+
+router.post('/posts/:postId/like', postController.likePost);
+router.delete('/posts/:postId/like', postController.unlikePost);
+router.post('/post/:postID/comment', postController.addComment);
+
+router.get('/noti', notiController.noti);
 router.get('/noti', notiController.notiFetch);
+
 router.get('/follow-list', followListController.followList);
 router.get('/success-change-page', authController.showSuccessChangePage);
 router.get('/thankyou', authController.showThankyou);
