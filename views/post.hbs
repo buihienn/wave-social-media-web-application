@@ -28,7 +28,11 @@
                         <small class="text-muted">{{post.timeAgo}}</small>
                     </div>
                     <div class="container-user-end d-flex align-items-center">
-                        <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                            {{#unless (eq post.user.id post.currentUserID)}}
+                                <button class="followButton {{#if post.isFollowing}}following{{else}}follow{{/if}} me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">
+                                    {{#if post.isFollowing}}Following{{else}}Follow{{/if}}
+                                </button>
+                            {{/unless}}
                         <button class="btn btn-sm">
                             <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
                         </button>
@@ -87,7 +91,6 @@
                             <small class="text-muted">{{timeAgo}}</small>
                         </div>
                         <div class="container-user-end d-flex align-items-center">
-                            <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
                             <button class="btn btn-sm">
                                 <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
                             </button>
@@ -96,6 +99,11 @@
             
                     <!-- Post content -->
                     <p class="m-0">{{content}}</p>
+                    <div>
+                        Post User ID: {{post.user.id}}<br>
+                        Current User ID: {{../currentUserID}}<br>
+                        Is Following: {{post.isFollowing}}
+                    </div>
                 </div>
             </div>
             {{/each}}

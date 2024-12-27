@@ -17,7 +17,7 @@ postController.getPostDetails = async (req, res) => {
                 {
                     model: models.User,
                     as: 'user',
-                    attributes: ['Username', 'ProfilePicture'], // Lấy các trường cần thiết
+                    attributes: ['Username', 'ProfilePicture', 'UserID'],
                 },
                 {
                     model: models.Comment,
@@ -25,13 +25,13 @@ postController.getPostDetails = async (req, res) => {
                     include: {
                         model: models.User,
                         as: 'user',
-                        attributes: ['Username', 'ProfilePicture'], // Lấy thông tin người bình luận
+                        attributes: ['Username', 'ProfilePicture'], 
                     },
                 },
                 {
                     model: models.Like,
                     as: 'likes',
-                    attributes: ['UserID'], // Chỉ cần UserID để kiểm tra "like"
+                    attributes: ['UserID'],
                 },
             ],
         });
@@ -48,6 +48,7 @@ postController.getPostDetails = async (req, res) => {
             timeAgo: formatTimeAgo(post.createdAt),
             image: post.PictureURL ? (post.PictureURL.startsWith('/') ? post.PictureURL : `/${post.PictureURL}`) : null,
             user: {
+                id: post.user.UserID,
                 username: post.user.Username,
                 avatar: post.user.ProfilePicture.startsWith('/') ? post.user.ProfilePicture : `/${post.user.ProfilePicture}`,
             },
@@ -63,7 +64,18 @@ postController.getPostDetails = async (req, res) => {
             })),
             likesCount: post.likes.length, 
             liked: post.likes.some(like => like.UserID === userID), 
+            currentUserID: userID,
         };
+
+        // Kiểm tra xem người dùng hiện tại có đang theo dõi người đăng bài không
+        const isFollowing = await models.Follower.findOne({
+            where: {
+                FollowerID: userID,
+                FolloweeID: post.user.UserID,
+            },
+        });
+
+        postData.isFollowing = !!isFollowing; 
 
         // Render view với dữ liệu
         res.render('post', {

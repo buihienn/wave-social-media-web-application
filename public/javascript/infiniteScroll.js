@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const limit = 10; // Số bài đăng mỗi lần tải
     let isLoading = false; // Đang tải dữ liệu hay không
 
+    // Xác định URL dựa trên chế độ hiện tại
+    const mainElement = document.querySelector('main');
+    const viewType = mainElement.getAttribute('data-view-type'); // 'home' hoặc 'following'
+    const fetchUrl = viewType === 'following' ? '/homeF' : '/home';
+
     window.addEventListener('scroll', async () => {
         const scrollHeight = document.documentElement.scrollHeight;
         const scrollTop = document.documentElement.scrollTop;
@@ -17,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // Gửi yêu cầu AJAX để lấy thêm bài đăng
-                const response = await fetch(`/home?offset=${offset}&limit=${limit}`, {
+                const response = await fetch(`${fetchUrl}?offset=${offset}&limit=${limit}`, {
                     headers: {
                         Accept: 'application/json',
                     },
@@ -55,8 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                                 <div class="container-user-end d-flex align-items-center">
                                     ${post.user.UserID !== data.currentUserID ? `
-                                        <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
-                                        ` : ''}
+                                    <button class="followButton ${post.isFollowing ? 'following' : 'follow'} me-2 mt-1" data-user-id="${post.user.UserID}" style="--bs-btn-padding-y: 0.3rem;">
+                                        ${post.isFollowing ? 'Following' : 'Follow'}
+                                    </button>
+                                    ` : ''}
                                     <button class="btn btn-sm">
                                         <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
                                     </button>
@@ -77,9 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <img src="/icons/comment.svg" alt="Comment Icon" style="width: 20px; height: 20px;" class="me-1">
                                     <small class="text-muted">${post.comments.length}</small>
                                 </div>
-                                <div class="container-reaction-copy d-flex align-items-center">
-                                    <img src="/icons/copy.svg" alt="Copy Icon" style="width: 20px; height: 20px;">
-                                </div>
                             </div>
                         </div>
                     `;
@@ -89,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Gắn lại sự kiện sau khi thêm bài đăng mới
                 attachPostClickEvents();
                 attachLikeEvents();
+                attachFollowClickEvents();
 
                 offset += limit; // Cập nhật offset
             } catch (error) {
@@ -124,5 +129,12 @@ function attachLikeEvents() {
     document.querySelectorAll('.container-reaction-wave').forEach(button => {
         button.removeEventListener('click', likeAction); // Xóa sự kiện cũ (nếu có)
         button.addEventListener('click', likeAction);   // Gắn sự kiện mới
+    });
+}
+
+// Gắn sự kiện "Follow" cho các nút "Follow"
+function attachFollowClickEvents() {
+    document.querySelectorAll('.followButton').forEach(button => {
+        button.addEventListener('click', followAction);
     });
 }

@@ -19,7 +19,10 @@ router.get('/login', authController.showLogin);
 router.get('/register', authController.showRegister);
 router.get('/forgot-pass', authController.showForgotPassword);
 
-router.get('/home', requireLogin,homeController.showPost);
+
+
+router.get('/homeF', homeController.showPostFollowing);
+router.get('/home', requireLogin, homeController.showPost);
 
 router.get('/profile', requireLogin,profileController.showProfile);
 router.get('/edit-profile', profileController.showEditProfile);
@@ -29,8 +32,22 @@ router.get('/new-post', requireLogin,newPostController.newPost);
 router.post('/new-post', uploadPost.single('picture'), newPostController.createPost);
 
 router.get('/posts/:postId', postController.getPostDetails);
+
+router.post('/posts/:postId/like', postController.likePost);
+router.delete('/posts/:postId/like', postController.unlikePost);
+router.post('/post/:postID/comment', postController.addComment);
+
+router.get('/noti', notiController.noti);
+router.get('/noti', notiController.notiFetch);
+
+router.get('/followers', followListController.getFollowers);
+router.get('/following', followListController.getFollowing);
+router.post('/users/:userId/follow', followListController.followUser);
+router.post('/users/:userId/unfollow', followListController.unfollowUser);
+
+
 router.get('/noti', requireLogin,notiController.notiFetch);
-router.get('/follow-list', requireLogin,followListController.followList);
+
 router.get('/success-change-page', authController.showSuccessChangePage);
 router.get('/thankyou', authController.showThankyou);
 

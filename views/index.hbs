@@ -6,10 +6,10 @@
     <nav>
         <ul class="nav nav-underline d-flex" id="wave-nav">
             <li class="nav-item flex-fill text-center">
-                <a class="nav-link active" href="#" onclick="setActiveMode(event)">All waves</a>
+                <a class="nav-link {{#if (eq currentPage 'all')}}active{{/if}}" href="/home">All waves</a>
             </li>
             <li class="nav-item flex-fill text-center">
-                <a class="nav-link" href="#" onclick="setActiveMode(event)">Following</a>
+                <a class="nav-link {{#if (eq currentPage 'following')}}active{{/if}}" href="/homeF">Following</a>
             </li>
         </ul>
     </nav>
@@ -40,7 +40,9 @@
                     </div>
                     <div class="container-user-end d-flex align-items-center">
                         {{#unless (eq user.UserID ../currentUserID)}}
-                            <button class="followButton follow me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;">Follow</button>
+                            <button class="followButton {{#if isFollowing}}following{{else}}follow{{/if}} me-2 mt-1" style="--bs-btn-padding-y: 0.3rem;" data-user-id="{{user.UserID}}">
+                                {{#if isFollowing}}Following{{else}}Follow{{/if}}
+                            </button>
                         {{/unless}}
                         <button class="btn btn-sm">
                             <img src="/icons/3dots.svg" alt="Verified" class="d-flex align-self-top" style="width: 20px; height: 20px;">
@@ -85,29 +87,65 @@
 
 <!--JS event-->
 <script>
-    function setActiveMode(event) {
-        document.querySelectorAll('#wave-nav .nav-link').forEach(link => {
-            link.classList.remove('active');
+    function setActiveMode(event, page) {
+        event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+        
+        const link = event.currentTarget;
+        document.querySelectorAll('#wave-nav .nav-link').forEach(nav => {
+            nav.classList.remove('active'); // Loại bỏ lớp "active" khỏi các mục khác
         });
 
-        event.currentTarget.classList.add('active');
+        link.classList.add('active'); // Thêm lớp "active" vào mục được nhấn
+
+        // Chuyển hướng đến URL phù hợp
+        if (page === 'following') {
+            window.location.href = '/homeF';
+        } else {
+            window.location.href = '/home';
+        }
     }
+
 
     function followAction(event) {
-        let followBtn = event.currentTarget;
+        const followBtn = event.currentTarget;
+        const userId = followBtn.getAttribute('data-user-id'); // ID của người được follow/unfollow
 
-        if (followBtn.textContent.trim() === 'Follow') {
-            followBtn.textContent = 'Following';
-            followBtn.classList.add('following');
-            followBtn.classList.remove('follow');
-        } else if (followBtn.textContent.trim() === 'Following') {
-            followBtn.textContent = 'Follow';
-            followBtn.classList.add('follow');
-            followBtn.classList.remove('following');
+        if (!userId) {
+            console.error('User ID not found.');
+            return;
         }
 
-        // Xử lý follow/unfollow
+        const isFollowing = followBtn.classList.contains('following');
+        const action = isFollowing ? 'unfollow' : 'follow';
+
+        fetch(`/users/${userId}/${action}`, {
+            method: 'POST',
+        })
+            .then(response => {
+                if (response.ok) {
+                    followBtn.textContent = isFollowing ? 'Follow' : 'Following';
+
+                if (isFollowing) {
+                    // Nếu đang Following -> Chuyển về Follow back
+                    followBtn.classList.remove('following');
+                    followBtn.classList.add('follow');
+                } else {
+                    // Nếu đang Follow back -> Chuyển về Following
+                    followBtn.classList.remove('follow');
+                    followBtn.classList.add('following');
+                }
+                } else {
+                    console.error('Failed to follow/unfollow user:', response.statusText);
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
+
+    function attachFollowClickEvents() {
+        document.querySelectorAll('.followButton').forEach(button => {
+            button.addEventListener('click', followAction);
+        });
+    };
 
     document.querySelectorAll('.followButton').forEach(button => {
         button.addEventListener('click', followAction);
@@ -145,9 +183,24 @@
         });
     }
 
-    // Gọi các hàm sau khi DOM đã sẵn sàng
     document.addEventListener('DOMContentLoaded', () => {
         attachPostClickEvents();
         attachLikeEvents();
+        attachFollowClickEvents();
+    // Lấy URL hiện tại
+    const currentPath = window.location.pathname;
+
+    // Kiểm tra trạng thái và thêm "active"
+    document.querySelectorAll('#wave-nav .nav-link').forEach(link => {
+        link.classList.remove('active'); // Xóa trạng thái active hiện tại
+
+        if (
+            (currentPath === '/home' && link.textContent.trim() === 'All waves') ||
+            (currentPath === '/homeF' && link.textContent.trim() === 'Following')
+        ) {
+            link.classList.add('active'); // Thêm trạng thái active đúng
+        }
     });
+});
+
 </script>
