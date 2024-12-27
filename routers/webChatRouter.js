@@ -19,6 +19,7 @@ router.get('/register', authController.showRegister);
 router.get('/forgot-pass', authController.showForgotPassword);
 
 router.get('/home', homeController.showPost);
+router.get('/homeF', homeController.showPostFollowing);
 
 router.get('/profile', profileController.showProfile);
 router.get('/edit-profile', profileController.showEditProfile);
@@ -38,6 +39,8 @@ router.get('/noti', notiController.notiFetch);
 
 router.get('/followers', followListController.getFollowers);
 router.get('/following', followListController.getFollowing);
+router.post('/users/:userId/follow', followListController.followUser);
+router.post('/users/:userId/unfollow', followListController.unfollowUser);
 
 router.get('/success-change-page', authController.showSuccessChangePage);
 router.get('/thankyou', authController.showThankyou);

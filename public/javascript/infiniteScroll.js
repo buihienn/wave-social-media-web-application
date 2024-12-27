@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const limit = 10; // Số bài đăng mỗi lần tải
     let isLoading = false; // Đang tải dữ liệu hay không
 
+    // Xác định URL dựa trên chế độ hiện tại
+    const mainElement = document.querySelector('main');
+    const viewType = mainElement.getAttribute('data-view-type'); // 'home' hoặc 'following'
+    const fetchUrl = viewType === 'following' ? '/homeF' : '/home';
+
     window.addEventListener('scroll', async () => {
         const scrollHeight = document.documentElement.scrollHeight;
         const scrollTop = document.documentElement.scrollTop;
@@ -17,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // Gửi yêu cầu AJAX để lấy thêm bài đăng
-                const response = await fetch(`/home?offset=${offset}&limit=${limit}`, {
+                const response = await fetch(`${fetchUrl}?offset=${offset}&limit=${limit}`, {
                     headers: {
                         Accept: 'application/json',
                     },
@@ -88,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Gắn lại sự kiện sau khi thêm bài đăng mới
                 attachPostClickEvents();
                 attachLikeEvents();
+                attachFollowClickEvents();
 
                 offset += limit; // Cập nhật offset
             } catch (error) {
@@ -123,5 +129,12 @@ function attachLikeEvents() {
     document.querySelectorAll('.container-reaction-wave').forEach(button => {
         button.removeEventListener('click', likeAction); // Xóa sự kiện cũ (nếu có)
         button.addEventListener('click', likeAction);   // Gắn sự kiện mới
+    });
+}
+
+// Gắn sự kiện "Follow" cho các nút "Follow"
+function attachFollowClickEvents() {
+    document.querySelectorAll('.followButton').forEach(button => {
+        button.addEventListener('click', followAction);
     });
 }

@@ -39,7 +39,9 @@
                             </div>
                         </div>
                         <div class="container-button me-3 d-flex align-items-center">
-                            <button class="follow followButton">Follow back</button>
+                            <button class="follow followButton {{#if this.isFollowing}}following{{else}}follow{{/if}}" data-user-id="{{this.follower.UserID}}">
+                                {{#if this.isFollowing}}Following{{else}}Follow back{{/if}}
+                            </button>
                         </div>  
                     </div>
                 </div>
@@ -58,7 +60,9 @@
                             </div>
                         </div>
                         <div class="container-button me-3 d-flex align-items-center">
-                            <button class="follow followButton">Follow back</button>
+                            <button class="follow followButton {{#if this.isFollowing}}follow{{else}}following{{/if}}" data-user-id="{{this.followee.UserID}}">
+                                {{#if this.isFollowing}}Follow{{else}}Following{{/if}}
+                            </button>
                         </div>  
                     </div>
                 </div>
@@ -82,22 +86,43 @@
     }
 
     function followAction(event) {
-        let followBtn = event.currentTarget;
+        const followBtn = event.currentTarget;
+        const userId = followBtn.getAttribute('data-user-id'); // ID của người được follow/unfollow
 
-        if (followBtn.textContent.trim() === 'Follow back') {
-            followBtn.textContent = 'Following';
-            followBtn.classList.add('following');
-            followBtn.classList.remove('follow');
-        } else if (followBtn.textContent.trim() === 'Following') {
-            followBtn.textContent = 'Follow back';
-            followBtn.classList.add('follow');
-            followBtn.classList.remove('following');
+        if (!userId) {
+            console.error('User ID not found.');
+            return;
         }
 
-        // Xử lý follow/unfollow
+        const isFollowing = followBtn.classList.contains('following');
+        const action = isFollowing ? 'unfollow' : 'follow';
+
+        fetch(`/users/${userId}/${action}`, {
+            method: 'POST',
+        })
+            .then(response => {
+                if (response.ok) {
+                    followBtn.textContent = isFollowing ? 'Follow back' : 'Following';
+
+                if (isFollowing) {
+                    // Nếu đang Following -> Chuyển về Follow back
+                    followBtn.classList.remove('following');
+                    followBtn.classList.add('follow');
+                } else {
+                    // Nếu đang Follow back -> Chuyển về Following
+                    followBtn.classList.remove('follow');
+                    followBtn.classList.add('following');
+                }
+                } else {
+                    console.error('Failed to follow/unfollow user:', response.statusText);
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
 
-    document.querySelectorAll('.followButton').forEach(button => {
-        button.addEventListener('click', followAction);
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.followButton').forEach(button => {
+            button.addEventListener('click', followAction);
+        });
     });
 </script>
