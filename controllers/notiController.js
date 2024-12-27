@@ -33,6 +33,9 @@ notiController.notiFetch = async (req, res) => {
                 }
             ]
         });
+
+        console.log(notifications);
+        
         res.render('notification', {
             notifications: notifications,
             title: 'Wave | Notifications',

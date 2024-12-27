@@ -37,14 +37,11 @@ router.post('/posts/:postId/like', postController.likePost);
 router.delete('/posts/:postId/like', postController.unlikePost);
 router.post('/post/:postID/comment', postController.addComment);
 
-router.get('/noti', notiController.noti);
-router.get('/noti', notiController.notiFetch);
 
 router.get('/followers', followListController.getFollowers);
 router.get('/following', followListController.getFollowing);
 router.post('/users/:userId/follow', followListController.followUser);
 router.post('/users/:userId/unfollow', followListController.unfollowUser);
-
 
 router.get('/noti', requireLogin,notiController.notiFetch);
 
