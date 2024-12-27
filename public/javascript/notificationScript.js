@@ -1,44 +1,25 @@
-function tabBarActive() {
-    document.querySelectorAll(".tab-bar").forEach(image => {
-    let imageSrc = image.src;
-    let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
+// function tabBarActive() {
+//     document.querySelectorAll(".tab-bar").forEach(image => {
+//     let imageSrc = image.src;
+//     let activeImageSrc = imageSrc.replace(".svg", "-active.svg");
 
-    image.onclick = () => {
-        image.src = activeImageSrc;
-    }
-    image.onmouseout = function() {
-        this.src = imageSrc;
-    }
-})
-}
+//     image.onclick = () => {
+//         image.src = activeImageSrc;
+//     }
+//     image.onmouseout = function() {
+//         this.src = imageSrc;
+//     }
+// })
+// }
 
-function setActiveMode(event) {
-    document.querySelectorAll('#wave-nav .nav-link').forEach(link => {
-        link.classList.remove('active');
-    });
+// function setActiveMode(event) {
+//     document.querySelectorAll('#wave-nav .nav-link').forEach(link => {
+//         link.classList.remove('active');
+//     });
 
-    event.currentTarget.classList.add('active');
-}
+//     event.currentTarget.classList.add('active');
+// }
 
-function followAction(event) {
-    let followBtn = event.currentTarget;
-
-    if (followBtn.textContent.trim() === 'Follow back') {
-        followBtn.textContent = 'Following';
-        followBtn.classList.add('following');
-        followBtn.classList.remove('follow');
-    } else if (followBtn.textContent.trim() === 'Following') {
-        followBtn.textContent = 'Follow back';
-        followBtn.classList.add('follow');
-        followBtn.classList.remove('following');
-    }
-
-    // Xử lý follow/unfollow
-}
-
-document.querySelectorAll('.followButton').forEach(button => {
-    button.addEventListener('click', followAction);
-});
 
 document.querySelectorAll('.noti').forEach(noti => {
     noti.addEventListener('click', async (event) => {

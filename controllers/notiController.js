@@ -86,5 +86,26 @@ notiController.deleteNotification = async (req, res) => {
     }
 };
 
+notiController.checkUnread = async (req, res) => {
+    const userId = req.session.user.id; // Lấy UserID từ session
+    if (!userId) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    try {
+        const unreadCount = await models.Notification.count({
+            where: {
+                UserID: userId,
+                IsRead: false,
+            },
+        });
+
+        res.json({ hasUnread: unreadCount > 0 });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
 
 module.exports = notiController;
