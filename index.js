@@ -74,6 +74,13 @@ app.use((req, res, next) => {
 
 app.use('/', require('./routers/webChatRouter.js'));
 
+const requireLogin = (req, res, next) => {
+    if (!req.session.user) {
+        return res.redirect('/login'); 
+    }
+    next();
+};
+
 app.use((req, res, next)=> {
     res.status(404).send('File not found!');
 })

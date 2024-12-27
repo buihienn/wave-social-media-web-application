@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const requireLogin = require('./requireLogin.js');
 
 const authController = require('../controllers/authController.js');
 const homeController = require('../controllers/homeController.js');
@@ -18,14 +19,16 @@ router.get('/login', authController.showLogin);
 router.get('/register', authController.showRegister);
 router.get('/forgot-pass', authController.showForgotPassword);
 
-router.get('/home', homeController.showPost);
-router.get('/homeF', homeController.showPostFollowing);
 
-router.get('/profile', profileController.showProfile);
+
+router.get('/homeF', homeController.showPostFollowing);
+router.get('/home', requireLogin, homeController.showPost);
+
+router.get('/profile', requireLogin,profileController.showProfile);
 router.get('/edit-profile', profileController.showEditProfile);
 router.post('/edit-profile', uploadAvatar.single('avatar'), profileController.updateProfile);
 
-router.get('/new-post', newPostController.newPost);
+router.get('/new-post', requireLogin,newPostController.newPost);
 router.post('/new-post', uploadPost.single('picture'), newPostController.createPost);
 
 router.get('/posts/:postId', postController.getPostDetails);
@@ -42,10 +45,13 @@ router.get('/following', followListController.getFollowing);
 router.post('/users/:userId/follow', followListController.followUser);
 router.post('/users/:userId/unfollow', followListController.unfollowUser);
 
+
+router.get('/noti', requireLogin,notiController.notiFetch);
+
 router.get('/success-change-page', authController.showSuccessChangePage);
 router.get('/thankyou', authController.showThankyou);
 
-router.get("/logout", authController.logout);
+router.get("/logout", requireLogin,authController.logout);
 
 // POST
 router.post('/register', 
@@ -66,5 +72,7 @@ router.get('/verify-email', authController.verifyEmail);
 
 // notifi
 router.patch("/notifications/:id/mark-as-read", notiController.markAsRead);
+router.delete("/notifications/:id/delete", notiController.deleteNotification);
+router.get ("/api/unread-notifications", notiController.checkUnread)
 
 module.exports = router;

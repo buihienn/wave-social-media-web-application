@@ -10,7 +10,11 @@
 
             <!-- Notifications -->
             <li class="nav-item p-2">
+                
                 <a class="nav-link" href="/noti">
+                    <div class="noti" style="height: 6px;" id = "notification-icon">
+                        <img src="/icons/notification.svg" alt="noti" class="d-flex justify-content-center m-auto">
+                    </div>
                     <img src="{{#if (eq currentPage 'noti')}}/icons/noti-active.svg{{else}}/icons/noti.svg{{/if}}" alt="noti">
                 </a>
             </li>
@@ -37,4 +41,30 @@
             </li>
         </ul>
     </nav>
+
+    <script>
+        async function checkUnreadNotifications() {
+            try {
+                const response = await fetch('/api/unread-notifications');
+                if (response.ok) {
+                    const data = await response.json();
+                    const notificationIcon = document.getElementById('notification-icon');
+                    if (data.hasUnread) {
+                        notificationIcon.style.display = 'block'; // Hien thị bieu tượng
+                    } else {
+                        notificationIcon.style.display = 'none'; // an bieu tượng
+                    }
+                } else {
+                    console.error('Failed to fetch unread notifications');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // khi trnag duoc tai thi kiem tra
+        document.addEventListener('DOMContentLoaded', checkUnreadNotifications);
+    </script>
+
 </footer>
+
